@@ -15,23 +15,12 @@
       /* <![CDATA[ */
       var base_url = "<?php echo BASE_URL;?>";
       var owner_id = "<?php echo $_SESSION['user']->id;?>";
-      var steep = ["social","technological","economic","environmental","political"];
+      <?php if(isset($categories)){
+        echo("var categories = new Array();\n");
+        foreach ($categories as $cat_id=>$cat){ echo("categories[$cat_id]='$cat';\n");}}?>
       var event_id = "<?php echo $_SESSION['event_id']; ?>";
       var card_id = "<?php echo $card_id; ?>";
       var card_owner = '<?php if (isset($card->owner)){ echo ($card->owner); } else{ echo(''); } ?>';
-      function create_card_front(){
-           if (card_owner!='1'){
-            var action = 'card_id='+card_id;
-            $.post("includes/create_card_front.php", { card_id: card_id },
-               function(data) {
-                 if(data!="false"){
-                     togglebuttons("Card saved.");
-                 } else{
-                     togglebuttons("Problem saving card.");
-                 }
-               });
-            }
-        }
         function togglebuttons(saving){
               $("#saving_message").html(saving);
               if(saving == "Card saved."){
@@ -64,7 +53,7 @@
                       return (value);
                   },
                   callback: function(value, settings) { 
-                     create_card_front();
+                     togglebuttons("Card saved.");
                      var completed = (value != '') ? $("#question_info").addClass("completed") : $("#question_info").removeClass("completed");
                   }
               });
@@ -81,7 +70,7 @@
                        return (value);
                    },
                    callback: function(value, settings) { 
-                      create_card_front();
+                      togglebuttons("Card saved.");
                    }
                });
               $('#factoid').editable(base_url+'includes/load_jeditable.php',{
@@ -100,10 +89,14 @@
                   },
                   callback: function(value, settings) { 
                       var completed = (value != '') ? $("#fact_info").addClass("completed") : $("#fact_info").removeClass("completed");
-                      create_card_front();
+                      togglebuttons("Card saved.");
                    }
               }); 
-              var data = {'1':'social','2':'technological','3':'economic','4':'environmental','5':'political' };
+              <?php if(isset($categories)){
+                  echo("var data = {");
+                  foreach ($categories as $cat_id=>$cat){ $safe_cat = dirify($cat); echo("'$cat_id':'$cat',");}
+                  echo("};");
+               }?>
               $('.editable_select').editable(base_url+"includes/load_jeditable.php", {
                   type: 'select',
                   data: data,
@@ -122,7 +115,7 @@
                       $(this).html(newcat);
                       $(this).parent().removeClass().addClass('category '+newcat);
                       $(this).val(value);
-                      create_card_front();
+                      togglebuttons("Card saved.");
                   }
               });
 
@@ -138,7 +131,7 @@
                        },
                        callback: function(value) {
                            if (value=='true'){
-                               create_card_front();
+                               togglebuttons("Card saved.");
                                $("#img_info").addClass("completed");
                            } else {
                                togglebuttons("Card saved.")
@@ -184,7 +177,7 @@
                          $(".ui-dialog-titlebar-close").hide();
                      },
                      resizable: false,
-                     title: 'Your card',
+                     title: 'Your inspiration',
                      buttons: {
                          "create": function(){ 
                              if($("#newcard").valid()){
@@ -193,17 +186,16 @@
                                  $.post('includes/load.php', action, function(data) {
                                               var card = eval(jQuery.parseJSON(data));
                                               if(card.id) {
-                                                   card_id = card.id;
-                                                    action = "controller=eventcards&action=post&event_id="+event_id+"&card_id="+card_id;
+                                                   action = "controller=eventcards&action=post&event_id="+event_id+"&card_id="+card.id+"&category_tag_id="+card.category_id;
                                                    $.post('includes/load.php', action, function(data) {
                                                           var eventcard = eval(jQuery.parseJSON(data));
                                                           if(eventcard.id) {
                                                           $("#dialog").dialog("close");
                                                           $("#dialog").remove();
                                                           $('#name').html(card.name);
-                                                          $('#category_id .editable_select').html(steep[card.category_id-1]);
-                                                          $('#category_id').removeClass().addClass('category '+steep[card.category_id-1]);
-                                                          create_card_front();
+                                                          $('#category_id .editable_select').html(categories[card.category_id]);
+                                                          $('#category_id').removeClass().addClass('category '+categories[card.category_id]);
+                                                          togglebuttons("Card saved.");
                                                           $("#issue_info").addClass("completed");
                                                           $("#steep_info").addClass("completed");
                                                       }
@@ -218,7 +210,7 @@
       $( "#radio" ).buttonset();
       $("#newcard").validate({
           rules: { name: "required", category_id:"required"},
-          messages: { name: "Please enter your card's issue", category_id: "Please choose a STEEP category"},
+          messages: { name: "Please enter your card's issue", category_id: "Please choose a category"},
           //errorElement: "span",
 
       });
@@ -226,19 +218,18 @@
       /* ]]> */
 </script>
  <?php } ?>
-
  <?php if ($card_id == 0){  ?>
  <div id="dialog" title="Basic dialog" style="display:none">
  	<form id="newcard" class="dialog">
- 	    <h3>1. Issue:</h3>
- 	    <p>What is your card's issue? What is the force driving the change? (This should be stated simply in one or two words, you can expand on it in the next step.)</p>
+ 	    <h3>1. Title:</h3>
+ 	    <p>What would you call this insight? If there is a brand associated this would be a good place to put it.</p>
  	   <p><input class="textbox l required editable" name="name" type="text" value="<?php if(isset($edit_event->name)){echo($edit_event->name);}?>" /></p>
  	   <h3>2. Category:</h3>
- 	   <p>Into which STEEP category does your issue best fit? It might fit into more than one but please choose the most relevant.</p>
+ 	   <p>Into which of the following categories does your insight best fit?</p>
  	   <p id="radio">
- 	   <?php foreach($steep as $key => $value){
- 	       echo("<input type=\"radio\" name=\"category_id\" id=\"$value\" value=\"$key\" /><span id=\"$value\"><label for=\"$value\">$value</label></span>");
- 	   } ?>
+ 	<?php foreach ($categories as $cat_id => $cat){
+ 	        $safe_name = dirify($cat);
+	        echo('<input type="radio" name="category_id" id="'.$safe_name.'" value="'.$cat_id.'" /><span id="'.$safe_name.'"><label for="'.$safe_name.'">'.$cat.'</label></span>'); } ?>
  	   <label for="category_id" class="error" generated="true"></label>
  	  </p>
  	</form>
@@ -249,8 +240,8 @@
 	<div id="page-heading" class="clearfix">
 		<div class="grid-wrap title-event">
 		<div class="grid_2 title-crumbs">
-		    <h2 id="name" class="editable"><?php if (isset($card->name)){ echo $card->name; } else{ echo'Untitled card (1)';} ?></h1>
-			<h2 id="category_id" class="category <?php if (isset($card)){ echo $steep[$card->category_id]; } else{ echo'grey';} ?>"><span class="editable_select"><?php if (isset($card)){ echo $steep[$card->category_id]; } else{ echo'category (2)';} ?></span></h2>
+		    <h2 id="name" class="editable"><?php if (isset($card->name)){ echo $card->name; } else{ echo'Untitled (1)';} ?></h1>
+			<h2 id="category_id" class="category <?php if (isset($card)){ echo $categories[$card->category_id]; } else{ echo'grey';} ?>"><span class="editable_select"><?php if (isset($card)){ echo $categories[$card->category_id]; } else{ echo'category (2)';} ?></span></h2>
 		</div>
 		<div class="grid_2 align_right pad-h1  chi">
 		    <span id="saving_message">Saving card...</span>&nbsp;&nbsp;
@@ -270,7 +261,7 @@
 	<!-- BEGIN FORM STYLING -->
 	<div class="grid_3b">
 		<div id="add-card" class="panel">
-		    <?php if( isset($card) && $card->owner!=1 ){?>
+		    <?php if( isset($card) ){?>
 		    <div id="img" class="ajaxupload" <?php if (isset($card->image)){ echo ('style="background:#ebebeb url('.UPLOADS_URL.$card->image.'_b.jpg) no-repeat center center"><span>Wrong image? Click here to change it.</span>'); } else{ echo('><span>Add Image (4)</span>'); }?></div>
 		    <?php } else{ echo('<div id="img">&nbsp;</div>'); } ?>
 		    <div id="factoid"><?php if (isset($card->factoid)){ echo $card->factoid; } else{ echo'Add Factoid (5)';} ?></div>
@@ -290,8 +281,8 @@
     		    <h2 class="cap">Card components</h2>
     		   <div class="content" >
     		    <div id="issue_info"<?php if (isset($card->name)&&$card->name!=""){ echo " class=\"completed\""; } ?>>
-				<h4>1. The issue</h4>
-                <p>What is the force driving the change?</p>
+				<h4>1. Title</h4>
+                <p>: what would you call this insight? If there is a brand associated this would be a good place to put it.</p>
                 </div>
                 <div id="steep_info"<?php if (isset($card->category_id)&&$card->category_id!=""){ echo "class=\"completed\""; } ?>>
                 <h4>2. Category</h4>

@@ -144,7 +144,7 @@ body {
 	font-size: 15px;
 	line-height: 15px;
 	text-align: left;
-	background-color: #8e949b;
+	background-color: #b0126f;
 	color: #d8dfe0;
 	overflow: hidden;
 	height: 36px;
@@ -190,6 +190,10 @@ body {
 	padding-bottom: 20px !important;
 }
 
+.push-up {
+	padding-top: 20px !important;
+}
+
 .header-wrap {   
 	margin: 0 25px;
 	padding-bottom: 1em;
@@ -220,6 +224,15 @@ body {
 	color: #888;
 	line-height: 13px;
 	padding-left: 2px;
+}
+
+#header h1 .summ{
+	display: block;
+	color: #888;
+	line-height: 18px;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
 }
 
 #main-navigation {

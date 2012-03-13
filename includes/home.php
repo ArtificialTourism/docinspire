@@ -7,18 +7,18 @@ $(document).ready(function() {
 </script>
 <!-- BEGIN HOMEPAGE -->
 <div class="container_4">
-    <div id="page-heading" class="clearfix">
-    	<div class="page-wrap">
+    <div class="grid-wrap push-up">
+  	<div class="grid_3 push-down">
 		<?php echo nl2br($event->description) ?>
-        <p>Login to <a href="create.php">create a card</a> or <a href="explore.php">explore the cards</a> other groups have created in our galleries.</p>
+		<div>
     </div>
 </div>
 </div>
 <div class="container_4">
     <div class="grid-wrap">
-	<div class="grid_3b">
+	<div class="grid_4">
 		<div class="panel">
-			<h2 class="cap-static"><?php echo $event->name ?> Cards</h2>
+			<h2 class="cap-static">Insights</h2>
 			<!-- Be sure you're keeping to this exact structure! -->
 			<div class="content gallery">
 				<div class="gallery-wrap">
@@ -52,7 +52,7 @@ $(document).ready(function() {
 						</div>
 						<!-- END GALLERY ITEM -->
 						<?php unset($card); } ?>
-						<?php } else {echo("No cards added yet."); }?>
+						<?php } else {echo("No insights added yet."); }?>
 					</div>
 				</div>
 				<!-- The gallery pagination/options area. -->
@@ -76,19 +76,7 @@ $(document).ready(function() {
 			
 		</div>
 		<!-- END PANEL -->	
-	<!-- END GRID_3/GALLERY -->
-	<div class="grid_1b">
-		<div class="panel">
-			<h2 class="cap-static">Arup Drivers of Change Cards</h2>
-			<div class="content demo-card" >
-			    <img class="arup-card" src="assets/images/demo-card.jpg" /><br />
-			    <h3>Card title</h3>
-			    <p>An Arup card or several here, perhaps have a rotating selected one and links to more to make it different? or one here and losts below.</p>
-			    <a title='ftygigbyu'>aaaa</a>
-			    <p>With links to other things</p>
-			</div>
-		</div>
-	</div>
+	<!-- END GALLERY -->
 	</div>
 </div>
 <!-- END CONTAINER -->

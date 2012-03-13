@@ -18,9 +18,6 @@ if ($_POST) {
             $text = "Fyi,".$_POST['useranme']."has requested ability to create his/her own events."; 
             mail(ADMIN_EMAIL, $subject, $text);*/
         } else{
-            if ($key == 'start'||$key=='end'){
-                $value = round($value / 1000);
-            }
            $options[$key]=$value;
        }
   }

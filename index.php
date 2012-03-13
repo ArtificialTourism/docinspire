@@ -18,8 +18,10 @@ if(empty($_SESSION['event_id'])||$page=='home'){
         if (isset($event)) { 
             $_SESSION['event_id'] = $event->id;
             $_SESSION['event_name'] = $event->name;
+            $_SESSION['event_summary'] = $event->summary;
             $_SESSION['event_private']= $event->private;
             $_SESSION['event_owner'] = $event->owner;
+            $_SESSION['event_coll_id'] = $event->collection_id;
             unset($_SESSION['org']);
             $owner_json = callAPI('user?id='.$event->owner);
             if (isset($owner_json)) { 
@@ -116,8 +118,14 @@ if ($_SESSION['event_name']){
                            //$tags = array();
                            
                        }
-                       //var_dump ($_SESSION['tags']);
+                       //
                       //
+                     $collection = callAPI('collection?id='.$_SESSION['event_coll_id'], array(), 'obj');
+                     $categories = array();
+                     foreach( $collection->categories as $cat){
+                          $categories[$cat->id] = $cat->name;
+                     }
+                    
                      if (isset($card_id) && $card_id!='') {
                         //do edit
                         $_SESSION['card_id'] = $card_id;
@@ -169,6 +177,7 @@ if ($_SESSION['event_name']){
              case 'view':
                 $_SESSION['ref_page'] = 'view';
                 $_SESSION['card_id'] = $card_id;
+                $collection = callAPI('collection?id='.$_SESSION['event_coll_id'], array(), 'obj');
                  if (isset($card_id)) {
                     $card_json = callAPI("card/get?id=".$card_id."&include_owner=1");
 //                    var_dump($card_json);
@@ -232,7 +241,7 @@ if ($_SESSION['event_name']){
                        require_once('includes/login.php');
                        require_once('includes/footer.php');
                 }else{
-                    $events_json = callAPI("event?owner=".$_SESSION['user']->id);
+                    $events_json = callAPI("event?owner=".$_SESSION['user']->id."&type=3");
                     if (isset($events_json)) {
                         $events = json_decode($events_json);
                         require_once('includes/header.php');
@@ -263,6 +272,17 @@ if ($_SESSION['event_name']){
                          $event_cards_json = callAPI("card?event_id=".$edit_event_id);
                          if (isset($event_cards_json)&&$event_cards_json!='[]') {$event_cards = json_decode($event_cards_json);}
                      }
+                    $collectionsobj = callAPI('collection', array(), 'obj');
+                    $collections = array();
+             	    foreach($collectionsobj as $collection) {
+             	    	$collections[$collection->id] = array(
+             	    	    'name'=>$collection->name,
+             	    	    'categories'=>array()
+             	    	);
+             	    	foreach($collection->categories as $category) {
+             	    	    $collections[$collection->id]['categories'][$category->id] = $category->name;	
+             	    	}
+             	    }
                      require_once('includes/header.php');
                      require_once('includes/form.php');
                      require_once('includes/footer.php');

@@ -66,7 +66,7 @@
 	    <div class="container_4">
         <div class="grid-wrap">
             <div class="grid_2">
-	        <a class="home" href="<?php echo BASE_URL;?>"><span class="tab">create</span><span>drivers of change</span></a>
+	        <a class="home" href="<?php echo BASE_URL;?>"><span class="tab">inspire</span><span>drivers of change</span></a>
 	        </div>
 	        <div class="grid_2 align_right">
 	            <div class="user_nav">
@@ -87,8 +87,8 @@
 <div id="header">
     <div class="container_4">
 	<div class="grid-wrap clearfix" id="header-holder">
-		<h1 class="grid_2"><a href="<?php echo BASE_URL;?>"><span class="org"><?php if (isset($_SESSION['org'])){echo $_SESSION['org'];}else{echo('&nbsp;');}?></span>
-		<?php echo $_SESSION['event_name']; ?></a>
+		<h1 class="grid_2"><a href="<?php echo BASE_URL;?>"><!-- <span class="org"><?php if (isset($_SESSION['org'])){echo $_SESSION['org'];}else{echo('&nbsp;');}?></span> -->
+		<?php echo $_SESSION['event_name']; ?><span class="summ"><?php if (isset($_SESSION['event_summary'])){echo $_SESSION['event_summary'];}?></span></a>
 		</h1>
 	 <div class="grid_2">
 	   <?php include_once('includes/main_navigation.php');?>
