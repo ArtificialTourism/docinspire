@@ -172,6 +172,31 @@ function CroppedThumbnail($imgSrc,$thumbnail_width,$thumbnail_height) { //$imgSr
     imagedestroy($myImage);
     return $thumb;
 }
+/////////////////resize to max width and height
+function resize_image_max($imgSrc,$max_width,$max_height) {
+    $image = imagecreatefromjpeg($imgSrc);
+    $w = imagesx($image); //current width
+    $h = imagesy($image); //current height
+    if ((!$w) || (!$h)) { $GLOBALS['errors'][] = 'Image couldn\'t be resized because it wasn\'t a valid image.'; return false; }
+
+    if (($w <= $max_width) && ($h <= $max_height)) { return $image; } //no resizing needed
+    
+    //try max width first...
+    $ratio = $max_width / $w;
+    $new_w = $max_width;
+    $new_h = $h * $ratio;
+    
+    //if that didn't work
+    if ($new_h > $max_height) {
+        $ratio = $max_height / $h;
+        $new_h = $max_height;
+        $new_w = $w * $ratio;
+    }
+    
+    $new_image = imagecreatetruecolor ($new_w, $new_h);
+    imagecopyresampled($new_image,$image, 0, 0, 0, 0, $new_w, $new_h, $w, $h);
+    return $new_image;
+}
 //from http://snipplr.com/view/14278/dirify/
 //This is an improvement of Adam Kalsey's port to PHP of Movable Type's dirification function written in Perl. http://kalsey.com/2004/07/dirifyinphp/
 //added to cleanup category names and make them usable as links might use to do clean urls in future

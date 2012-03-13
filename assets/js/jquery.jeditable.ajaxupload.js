@@ -56,9 +56,10 @@ $.editable.addInputType('ajaxupload', {
                 success: function(data, status) {
                     if (data.substring(0, 4) == 'http') {
                         callback("true");
-                        $(original).html('<span>Wrong image? Click here to change it.</span>');
-                        var img_path = '#ebebeb url(' + data + ') no-repeat center center';
-                        $(original).css("background", img_path);
+ 							//var img_path = '#ebebeb url(' + data + ') no-repeat center center';
+							$('#img').html('<img src="'+data+'" />');
+	                        $(original).html('<span>Wrong image? Click here to change it.</span>');
+                        
                     } else {
                         callback("false");
                         $(original).html('<span>' + data + '</span>');

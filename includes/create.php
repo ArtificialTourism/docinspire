@@ -20,6 +20,7 @@
         foreach ($categories as $cat_id=>$cat){ echo("categories[$cat_id]='$cat';\n");}}?>
       var event_id = "<?php echo $_SESSION['event_id']; ?>";
       var card_id = "<?php echo $card_id; ?>";
+      var card_img = "<?php if (isset($card->image)){ echo ($card->image); } else{ echo(''); } ?>";
       var card_owner = '<?php if (isset($card->owner)){ echo ($card->owner); } else{ echo(''); } ?>';
         function togglebuttons(saving){
               $("#saving_message").html(saving);
@@ -44,7 +45,7 @@
                   cancel    : 'Cancel',
                   submit    : 'OK',
                   tooltip   : 'Click to edit...',
-                  placeholder : "Add Question (3)",
+                  placeholder : "Add Source (4)",
                   submitdata : function() {
                           togglebuttons("Saving...");
                           return {controller:'card', card_id : card_id };
@@ -79,13 +80,13 @@
                   cancel    : 'Cancel',
                   submit    : 'OK',
                   rows:'4',
-                  placeholder : "Add Factoid (5)",
+                  placeholder : "Add Summary (5)",
                   submitdata : function() {
                           togglebuttons("Saving...");
                           return {controller:'card', card_id : card_id };
                   },
                   data: function(value) {
-                    return (value == 'Add Factoid (5)') ? '' : value;
+                    return (value == 'Add Summary (5)') ? '' : value;
                   },
                   callback: function(value, settings) { 
                       var completed = (value != '') ? $("#fact_info").addClass("completed") : $("#fact_info").removeClass("completed");
@@ -127,7 +128,7 @@
                        tooltip   : "Click to upload...",
                        submitdata : function() {
                            togglebuttons("Saving...");
-                           return {card_id : card_id};
+                           return {card_id: card_id, img: card_img };
                        },
                        callback: function(value) {
                            if (value=='true'){
@@ -259,18 +260,20 @@
 <div class="container_4">
     <div class="grid-wrap">
 	<!-- BEGIN FORM STYLING -->
-	<div class="grid_3b">
-		<div id="add-card" class="panel">
+	<div id="insight" class="grid_3b">
+		<div class="panel">
 		    <?php if( isset($card) ){?>
-		    <div id="img" class="ajaxupload" <?php if (isset($card->image)){ echo ('style="background:#ebebeb url('.UPLOADS_URL.$card->image.'_b.jpg) no-repeat center center"><span>Wrong image? Click here to change it.</span>'); } else{ echo('><span>Add Image (4)</span>'); }?></div>
+		    <div id="img"><?php if (isset($card->image)){ echo ('<img src="'.UPLOADS_URL.$card->image.'_l.jpg" />');} ?></div>
+		    <div class="ajaxupload content no-cap">
+		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (4)'); }?></div>
 		    <?php } else{ echo('<div id="img">&nbsp;</div>'); } ?>
-		    <div id="factoid"><?php if (isset($card->factoid)){ echo $card->factoid; } else{ echo'Add Factoid (5)';} ?></div>
-		    <div id="question" class="editable"><?php if (isset($card)){ echo $card->question; } else{ echo'Add Question (3)';} ?></div>
-			<img class="bkg" src="assets/images/card-bkg.gif" alt="card background" />
+		    </p>
 		</div>
-		<div class="panel white">
-     
-    	    
+		<div class="panel">
+           <p id="question" class="content no-cap push-down editable"><?php if (isset($card)){ echo $card->question; } else{ echo'Add Source (4)';} ?></p>
+        </div>
+        <div class="panel">
+             <p id="factoid" class="content no-cap push-down"><?php if (isset($card->factoid)){ echo $card->factoid; } else{ echo'Add Summary (5)';} ?></p>
         </div>
 	</div>
 	<!-- END FORM STYLING -->
@@ -288,22 +291,16 @@
                 <h4>2. Category</h4>
                 <p>Into which STEEP category does your issue best fit? (Social, Technological, Economic, Environmental or Political). </p>
                 </div>
+                <div id="img_info"<?php if (isset($card->image)&&$card->image!=""){ echo "class=\"completed\""; } ?>>
+                <h4>3. Image</h4>
+                <p>Upload an image, sketch or graphic to illustrate your issue or its potential consequence. (Up to 15Mb in file size.).</p>
+                </div>
                 <div id="question_info"<?php if (isset($card->question)&&$card->question!=""){ echo "class=\"completed\""; } ?>>
-                <h4>3. Question</h4>
+                <h4>4. Source</h4>
                 <p>What question illustrates the sheer impact of your issue?</p>
                 </div>
-                <?php if( isset($card) && $card->owner!=1 ){?>
-                <div id="img_info"<?php if (isset($card->image)&&$card->image!=""){ echo "class=\"completed\""; } ?>>
-                <h4>4. Image</h4>
-                <p>Upload an image, sketch or graphic to illustrate your issue or its potential consequence. (Up to 200Mb in file size. It will be cropped to fit background).</p>
-                </div>
-                <?php } else{?>
-                 <div id="img_info" class="completed">
-                <h4>4. Image</h4>
-                <p>Arup cards have pre-created images, please edit file on cards folder.</p> 
-                <?php } ?>
                 <div id="fact_info"<?php if (isset($card->factoid)&&$card->factoid!=""){ echo "class=\"completed\""; } ?>>
-                <h4>5. Factoid</h4>
+                <h4>5. Summary</h4>
                 <p>Can you expand on the potential consequences of the issue? (in about 40 words or less)</p>
                 <!-- <form id="tag-it" action="javascript:void(0);">
                                     <h4>Tags</h4>
