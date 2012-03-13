@@ -74,7 +74,7 @@
                       togglebuttons("Card saved.");
                    }
                });
-              $('#factoid').editable(base_url+'includes/load_jeditable.php',{
+              $('#description').editable(base_url+'includes/load_jeditable.php',{
                   type: 'textarea',
                   indicator : '<img src="assets/images/indicator.gif" alt="" />', 
                   cancel    : 'Cancel',
@@ -240,11 +240,11 @@
 <div class="container_4">
 	<div id="page-heading" class="clearfix">
 		<div class="grid-wrap title-event">
-		<div class="grid_2 title-crumbs">
+		<div class="grid_3b title-crumbs">
 		    <h2 id="name" class="editable"><?php if (isset($card->name)){ echo $card->name; } else{ echo'Untitled (1)';} ?></h1>
 			<h2 id="category_id" class="category <?php if (isset($card)){ echo $categories[$card->category_id]; } else{ echo'grey';} ?>"><span class="editable_select"><?php if (isset($card)){ echo $categories[$card->category_id]; } else{ echo'category (2)';} ?></span></h2>
 		</div>
-		<div class="grid_2 align_right pad-h1  chi">
+		<div class="grid_1b align_right pad-h1  chi">
 		    <span id="saving_message">Saving card...</span>&nbsp;&nbsp;
 		    <span class="buttons-enab" style="display:none">
 			<a id="viewcard" href="#" onClick="viewcard()" class="button blue small">View card</a> <a href="#" onClick="trashcard()" class="button red small">Move to trash</a>
@@ -273,7 +273,7 @@
            <p id="question" class="content no-cap push-down editable"><?php if (isset($card)){ echo $card->question; } else{ echo'Add Source (4)';} ?></p>
         </div>
         <div class="panel">
-             <p id="factoid" class="content no-cap push-down"><?php if (isset($card->factoid)){ echo $card->factoid; } else{ echo'Add Summary (5)';} ?></p>
+             <p id="description" class="content no-cap push-down"><?php if (isset($card->description)){ echo $card->description; } else{ echo'Add Summary (5)';} ?></p>
         </div>
 	</div>
 	<!-- END FORM STYLING -->
@@ -285,23 +285,24 @@
     		   <div class="content" >
     		    <div id="issue_info"<?php if (isset($card->name)&&$card->name!=""){ echo " class=\"completed\""; } ?>>
 				<h4>1. Title</h4>
-                <p>: what would you call this insight? If there is a brand associated this would be a good place to put it.</p>
+                <p>What would you call this insight? If there is a brand associated this would be a good place to put it.</p>
                 </div>
                 <div id="steep_info"<?php if (isset($card->category_id)&&$card->category_id!=""){ echo "class=\"completed\""; } ?>>
                 <h4>2. Category</h4>
-                <p>Into which STEEP category does your issue best fit? (Social, Technological, Economic, Environmental or Political). </p>
+                <p>Into which category does your insight best fit? (<?php echo implode(", ",$categories) ?>). </p>
                 </div>
                 <div id="img_info"<?php if (isset($card->image)&&$card->image!=""){ echo "class=\"completed\""; } ?>>
                 <h4>3. Image</h4>
-                <p>Upload an image, sketch or graphic to illustrate your issue or its potential consequence. (Up to 15Mb in file size.).</p>
+                <p>upload an image, sketch or graphic, which illustrates  your innovation at a glance. (Up to 15Mb in file size).</p>
                 </div>
                 <div id="question_info"<?php if (isset($card->question)&&$card->question!=""){ echo "class=\"completed\""; } ?>>
                 <h4>4. Source</h4>
-                <p>What question illustrates the sheer impact of your issue?</p>
+                <p>Where can we find this information again and again? (copy and paste URL link here).
+                </p>
                 </div>
-                <div id="fact_info"<?php if (isset($card->factoid)&&$card->factoid!=""){ echo "class=\"completed\""; } ?>>
+                <div id="fact_info"<?php if (isset($card->description)&&$card->description!=""){ echo "class=\"completed\""; } ?>>
                 <h4>5. Summary</h4>
-                <p>Can you expand on the potential consequences of the issue? (in about 40 words or less)</p>
+                <p>Tell us a bit more about your insight/innovation? What it is? What makes it so compelling you submitted it? (in about 40 words or less)</p>
                 <!-- <form id="tag-it" action="javascript:void(0);">
                                     <h4>Tags</h4>
                                     <p>Additionally, you can add some <b>tags</b> or keywords below to describe your card's topic:</p>

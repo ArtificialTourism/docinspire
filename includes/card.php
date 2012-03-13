@@ -6,15 +6,10 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
     $comments = json_decode($comments_json);
     //var_dump($card);
     $date = date('j F, Y \a\t g:i a',$card->ctime);
-    if ($card->owner==1){
-        $card_front = ARUP_CARDS_URL.$card->card_front;
-        $card_back = ARUP_CARDS_URL.$card->card_back;
-    } else{
-        $card_front = UPLOADS_URL.'fronts/'.$card->card_front.'.jpg';
-        $card_headers = @get_headers($card_front);
-        if($card_headers[0] == 'HTTP/1.1 404 Not Found') {
-            $card_front="false";
-        }
+    $image = UPLOADS_URL.$card->image.'_l.jpg';
+    $img_headers = @get_headers($image);
+    if($img_headers[0] == 'HTTP/1.1 404 Not Found') {
+        $image="false";
     }
 } else{
     //@todo -- throw error
@@ -34,11 +29,11 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
 <div class="container_4">
 	<div id="page-heading" class="clearfix">
 		<div class="grid-wrap title-event">
-		<div class="grid_2 title-crumbs">
+		<div class="grid_3 title-crumbs">
 		    <h2 id="name" class=""><?php if (isset($card->name)){ echo $card->name;} ?></h1>
-			<?php if (isset($card->category_id)){?><h2 id="category_id" class="category <?php echo $steep[$card->category_id]; ?>"><?php echo $steep[$card->category_id]; ?></h2><?php }?>
+			<?php if (isset($categories[$card->category_id])) {?><h2 id="category_id" class="category <?php echo $categories[$card->category_id]; ?>"><?php echo $categories[$card->category_id]; ?></h2><?php }?>
 		</div>
-		<div class="grid_2 align_right pad-h1  chi">
+		<div class="grid_1 align_right pad-h1  chi">
 			<?php if ((isset($_SESSION['user']->id) && $card->owner==$_SESSION['user']->id) || (isset($_SESSION['user']->id) && $_SESSION['user']->id==$_SESSION['event_owner']) ){?><a href="index.php?do=create&card_id=<?php echo $card->id ?>" class="button blue small">Edit card</a><?php }?>
 		</div>
 	</div>
@@ -52,17 +47,16 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
 	<!-- BEGIN FORM STYLING -->
 	<div class="grid_3b">
 		<div class="panel">
-		    <div class="card">
-		   <img id="card-front" src='<?php echo $card_front; ?>' alt="<?php echo $card->name; ?> Front" />
+		    <div id="img">
+		   <img src='<?php echo $image; ?>' alt="<?php echo $card->name; ?> Front" />
 		   	</div>
 		</div>
-		<?php if (isset($card_back)){ ?>
 		<div class="panel">
-	   	<div class="card">
-	   <img id="card-back" src='<?php echo $card_back; ?>' alt="<?php echo $card->name; ?> Back" />
-	   	</div>
-	   	</div>
-	   	<?php } ?>
+           <p id="question" class="content no-cap push-down"><?php if (isset($card)){ echo $card->question; }?></p>
+        </div>
+        <div class="panel">
+        <p id="description" class="content no-cap push-down"><?php if (isset($card->description)){ echo $card->description; }?></p>
+        </div>
 	</div>
 	<!-- END FORM STYLING -->
     	<div class="grid_1b">
@@ -72,7 +66,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
     			    on <?php echo $date ?>.</p>
     			    <div class="card-options">
     			        <!-- <div class="favorite-bar"><span class="progress-icon">34</span><div class="progress-bar"><div class="bar white" style="width:30%">30 Percent</div></div></div> -->
-    			        <?php if($_SESSION['user']->id){?><a class="icon-button icon-favorite" href="" title="Add to favorites">Add to Favorites</a><span class="counter" id="star-counter">&hellip;</span> <a class="icon-button icon-comment" href="#">Add Comment</a><span class="counter" id="comment-counter"><?php echo count($comments);?></span> <a class="icon-button icon-flag" href="#" title="Report as inappropriate">Report</a><span class="counter" id="flag-counter">&hellip;</span><?php }else{?><p class="icon-button icon-favorite" href="" title="Add to favorites">Favorites</p><span class="counter" id="star-counter">&hellip;</span> <p class="icon-button icon-comment" href="#"> Comments</p><span class="counter" id="comment-counter"><?php echo count($comments);?></span> <p class="icon-button icon-flag" href="#" title="Report">Report</p><span class="counter" id="flag-counter">&hellip;</span><?php }?>&nbsp;&nbsp;<a class="icon-button icon-send" href="mailto:?subject=<?php echo $card->question; ?>&amp;body=Drivers of Change: <?php echo $card->name; ?>">Share</a>
+    			        <?php if(isset($_SESSION['user'])){?><a class="icon-button icon-favorite" href="" title="Add to favorites">Add to Favorites</a><span class="counter" id="star-counter">&hellip;</span> <a class="icon-button icon-comment" href="#">Add Comment</a><span class="counter" id="comment-counter"><?php echo count($comments);?></span> <a class="icon-button icon-flag" href="#" title="Report as inappropriate">Report</a><span class="counter" id="flag-counter">&hellip;</span><?php }else{?><p class="icon-button icon-favorite" href="" title="Add to favorites">Favorites</p><span class="counter" id="star-counter">&hellip;</span> <p class="icon-button icon-comment" href="#"> Comments</p><span class="counter" id="comment-counter"><?php echo count($comments);?></span> <p class="icon-button icon-flag" href="#" title="Report">Report</p><span class="counter" id="flag-counter">&hellip;</span><?php }?>&nbsp;&nbsp;<a class="icon-button icon-send" href="mailto:?subject=<?php echo $card->question; ?>&amp;body=Drivers of Change: <?php echo $card->name; ?>">Share</a>
     			    </div>
     			</div>
     		</div>
@@ -117,7 +111,6 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
     /* <![CDATA[ */
     var base_url = "<?php echo BASE_URL;?>";
     var uploads_url = "<?php echo UPLOADS_URL;?>";
-    var card_front = "<?php echo $card_front;?>";
     var card_id = "<?php echo $card_id; ?>";
     var curr_user_id = "<?php if(isset($_SESSION['user']->id)){ echo $_SESSION['user']->id; }else{ echo (''); }?>";
     var curr_user = "<?php if(isset($_SESSION['user']->id)){ echo $_SESSION['user_name'];} else{ echo(''); }?>";
@@ -219,27 +212,10 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
          var time = date+' '+month+', '+year+' at '+hour+':'+min+' '+ap;
          return time;
      }
-     function create_card_front(){
-          //alert(base_url+'includes/create_card_front.php?'+'card_id='+card_id);
-           var action = 'card_id='+card_id;
-           $.post("includes/create_card_front.php", { card_id: card_id },
-              function(data) {
-                if(data){
-                    $('#card-front').attr("src", uploads_url+'fronts/'+data+'.jpg');
-                    $('#card-front').fadeIn('slow');
-                    $('#indicator').remove();
-                }
-              });
-       }
     $(document).ready(function() {
         
     	//$('a.clue').aToolTip();
     	//
-        if (card_front=="false"){
-            $("#card-front").after('<p id="indicator"><img src="assets/images/indicator.gif" alt="" /> Generating image...</p>');
-            $('#card-front').hide();
-            create_card_front();
-        }
     	$('#add-card').hide();
     	$('#add-card').fadeIn('slow');
     	countStars();

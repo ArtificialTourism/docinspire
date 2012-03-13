@@ -178,6 +178,10 @@ if ($_SESSION['event_name']){
                 $_SESSION['ref_page'] = 'view';
                 $_SESSION['card_id'] = $card_id;
                 $collection = callAPI('collection?id='.$_SESSION['event_coll_id'], array(), 'obj');
+                 $categories = array();
+                 foreach( $collection->categories as $cat){
+                      $categories[$cat->id] = $cat->name;
+                 }
                  if (isset($card_id)) {
                     $card_json = callAPI("card/get?id=".$card_id."&include_owner=1");
 //                    var_dump($card_json);

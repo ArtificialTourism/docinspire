@@ -1509,10 +1509,6 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	background: url(../images/card_shdw_b.png) no-repeat center bottom;}
-
-#add-card .card,#add-card img.bkg {
-	width: 100%;
-}
 #name{
 	margin-bottom: 6px;
 }
@@ -1522,37 +1518,28 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 #img img{
 	max-width: 100%;
 }
-#question, #factoid, #img{
+#question, #description, #img, .ajaxupload{
 	font-weight: bold;
 	font-size: 15px;
 }
 
-#name input, #source input, #add-card input, #add-card textarea {
-	font: bold 13px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+#name input, #question input, #description textarea, .ajaxupload input{
+	font: bold 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 	border: none;
 	outline: none;
-	padding-right: 0;
-	margin-bottom: 3px;
-	width: 100%;
-}
-
-#name input, #source input{
-	border: 1px solid #ebebeb;
 	margin-bottom: .45em;
-	font-weight: bold;
-	font-size: 21px;
-	padding: .2em;
+	background-color: #ffffea;
+	padding: .5em;
 }
-#newcard input{
-	color: #000;
-	font-weight: bold;
-	font-size: 24px;
-	padding: .2em;
+.ajaxupload input{
+	background-color: #fff;
+	padding-left: 0;
 }
 
-#add-card #question input {
+#name input{
+	font-weight: bold;
 	font-size: 21px;
-    padding: .2em;
+	padding: .2em;
 }
 
 #add-card #steep {
@@ -1565,25 +1552,6 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	text-align: right;
 	font-size: 16px;
 	font-weight: bold;
-}
-
-#add-card #steep p {
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	-webkit-transform: rotate(-90deg);
-	-moz-transform: rotate(-90deg);
-	-o-transform: rotate(-90deg);
-	-ms-transform: rotate(-90deg);
-	padding: 10px 15px;
-	display: inline;
-}
-
-#add-card #steep a {
-	color: #fff;
-	background-color: #b1b1b1;
-	padding: 6px 8px 8px;
 }
 
 #upload {
