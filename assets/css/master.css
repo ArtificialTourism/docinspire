@@ -1500,6 +1500,14 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	float: right;
 }
 
+#gallery .box {
+	border: 1px solid #ebebeb;
+	padding: 1px;
+	margin-bottom: 16px;
+	margin-right: 16px;
+	float: left;
+}
+
 /* CARD FORM */
 
 #add-card {

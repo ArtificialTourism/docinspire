@@ -187,6 +187,7 @@
                                  $.post('includes/load.php', action, function(data) {
                                               var card = eval(jQuery.parseJSON(data));
                                               if(card.id) {
+                                                   card_id = card.id;
                                                    action = "controller=eventcards&action=post&event_id="+event_id+"&card_id="+card.id+"&category_tag_id="+card.category_id;
                                                    $.post('includes/load.php', action, function(data) {
                                                           var eventcard = eval(jQuery.parseJSON(data));
@@ -262,11 +263,9 @@
 	<!-- BEGIN FORM STYLING -->
 	<div id="insight" class="grid_3b">
 		<div class="panel">
-		    <?php if( isset($card) ){?>
-		    <div id="img"><?php if (isset($card->image)){ echo ('<img src="'.UPLOADS_URL.$card->image.'_l.jpg" />');} ?></div>
+		    <div id="img"><?php if(isset($card->image)){ echo ('<img src="'.UPLOADS_URL.$card->image.'_l.jpg" />');} ?></div>
 		    <div class="ajaxupload content no-cap">
 		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (4)'); }?></div>
-		    <?php } else{ echo('<div id="img">&nbsp;</div>'); } ?>
 		    </p>
 		</div>
 		<div class="panel">

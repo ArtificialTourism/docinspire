@@ -19,9 +19,8 @@ $(document).ready(function() {
 	<div class="grid_4">
 		<div class="panel">
 			<h2 class="cap-static">Insights</h2>
-			<!-- Be sure you're keeping to this exact structure! -->
-			<div class="content">
-			    <?php if (isset($event_cards)&&count($event_cards)>0){?>
+			<?php if (isset($event_cards)&&count($event_cards)>0){?>
+			    <div id="gallery" class="content transitions-enabled infinite-scroll clearfix">
 				<?php $last_event_cards = array_reverse($event_cards); 
 				foreach (array_slice($last_event_cards, 0, 24) as $card) { 
 				    if (isset($card->image)){
@@ -33,17 +32,60 @@ $(document).ready(function() {
                     }
 				?>
 				<!-- GALLERY ITEM -->
-				<div class="img">
+				<div class="box">
 					<a class="clue" title="<?php echo $card->name; ?>" href="index.php?do=view&card_id=<?php echo $card->id ?>"><img src="<?php echo $img; ?>" alt="" /></a>
 				</div>
 				<!-- END GALLERY ITEM -->
 				<?php unset($card); unset($img); } ?>
-				<?php } else {echo("No insights added yet."); }?>
 			</div>
-			<!-- END CONTENT -->
+			<?php }?>
+			<!-- END GALERY -->
+			<nav id="page-nav">
+              <a href="create.php"></a>
+            </nav>
 		</div>
 		<!-- END PANEL -->	
 	</div>
 </div>
 </div>
 <!-- END CONTAINER -->
+ <!-- Masonry and infinite scroll -->
+<script src="assets/js/jquery.masonry.min.js"></script>
+<script src="assets/js/jquery.infinitescroll.min.js"></script>
+<script>
+  $(function(){
+    
+    var $container = $('#gallery');
+    
+    $container.imagesLoaded(function(){
+      $container.masonry({
+        itemSelector: '.box',
+        columnWidth: 260,
+        gutterWidth: 16
+      });
+    });
+    
+    $container.infinitescroll({
+      navSelector  : '#page-nav',    // selector for the paged navigation 
+      nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+      itemSelector : '.box',     // selector for all items you'll retrieve
+      loading: {
+          finishedMsg: 'No more pages to load.',
+          img: 'http://i.imgur.com/6RMhx.gif'
+        }
+      },
+      // trigger Masonry as a callback
+      function( newElements ) {
+        // hide new items while they are loading
+        var $newElems = $( newElements ).css({ opacity: 0 });
+        // ensure that images load before adding to masonry layout
+        $newElems.imagesLoaded(function(){
+          // show elems now they're ready
+          $newElems.animate({ opacity: 1 });
+          $container.masonry( 'appended', $newElems, true ); 
+        });
+      }
+    );
+    
+  });
+</script>

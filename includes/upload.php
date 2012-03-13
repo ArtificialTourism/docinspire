@@ -4,7 +4,7 @@ require_once ('functions.php');
 date_default_timezone_set('GMT');
 $date = date( 'U' );  
 $card_id =  $_GET['card_id'];
-$old_img = $_GET['img'];
+if (isset($_GET['img'])){$old_img = $_GET['img'];}else{$old_img='';}
 $bkg_w = 800;
 $bkg_h= 800;
 //check if there are files uploaded
@@ -39,7 +39,7 @@ if ((($_FILES['value']["type"] == "image/gif")
                   if(file_exists(UPLOADS_DIR.$old_img.'_t.jpg')) unlink(UPLOADS_DIR.$old_img.'_t.jpg');
                   echo(UPLOADS_URL.$new_filename.'_l.jpg');
                 }else{
-                 return die ("There was a problem saving the file.");
+                 return die ("There was a problem saving the file.".$new_filename);
               }
           }else{
               return die ("There was a problem saving the file.");
