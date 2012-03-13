@@ -197,6 +197,26 @@ function resize_image_max($imgSrc,$max_width,$max_height) {
     imagecopyresampled($new_image,$image, 0, 0, 0, 0, $new_w, $new_h, $w, $h);
     return $new_image;
 }
+////////////////resize to max width only
+function width_tumb($imgSrc,$max_width) {
+    $image = imagecreatefromjpeg($imgSrc);
+    $w = imagesx($image); //current width
+    $h = imagesy($image); //current height
+    //calculate the image ratio
+    //$imgratio=$w/$h;
+    $newwidth = $max_width;
+    if ($w>=$max_width){
+        $ratio = $w/$max_width;
+        $newheight = $h/$ratio;
+    } else{
+        $ratio = $max_width/$w;
+        $newheight = $h*$ratio;
+    }
+     $new_image = imagecreatetruecolor($newwidth,$newheight);
+     imagecopyresampled($new_image, $image, 0, 0, 0, 0, $newwidth, $newheight, $w, $h);
+     return $new_image;
+}
+
 //from http://snipplr.com/view/14278/dirify/
 //This is an improvement of Adam Kalsey's port to PHP of Movable Type's dirification function written in Perl. http://kalsey.com/2004/07/dirifyinphp/
 //added to cleanup category names and make them usable as links might use to do clean urls in future

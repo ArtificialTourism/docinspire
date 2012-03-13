@@ -25,13 +25,18 @@ if ((($_FILES['value']["type"] == "image/gif")
                $b_im = resize_image_max(UPLOADS_URL.$new_filename.'.jpg',$bkg_w,$bkg_h);
                imageinterlace($b_im, true);
                imagejpeg($b_im, UPLOADS_DIR.$new_filename.'_l.jpg');
+               $t_im = width_tumb(UPLOADS_URL.$new_filename.'.jpg',260);
+               imageinterlace($t_im, true);
+               imagejpeg($t_im, UPLOADS_DIR.$new_filename.'_t.jpg');
                imagedestroy($im);
                imagedestroy($b_im);
+               imagedestroy($t_im);
               $saved_card_json = callAPI("card/put?id=".$card_id.'&image='.$new_filename);
               $saved_card = json_decode($saved_card_json);
               if (isset($saved_card)){
                   if(file_exists(UPLOADS_DIR.$old_img.'.jpg')) unlink(UPLOADS_DIR.$old_img.'.jpg');
                   if(file_exists(UPLOADS_DIR.$old_img.'_l.jpg')) unlink(UPLOADS_DIR.$old_img.'_l.jpg');
+                  if(file_exists(UPLOADS_DIR.$old_img.'_t.jpg')) unlink(UPLOADS_DIR.$old_img.'_t.jpg');
                   echo(UPLOADS_URL.$new_filename.'_l.jpg');
                 }else{
                  return die ("There was a problem saving the file.");
