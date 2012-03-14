@@ -61,11 +61,18 @@ function show_error($h2, $body, $type="404"){
 if ($_SESSION['event_name']){
 	//we have event, safe to display any page
     if ($_SESSION['event_private'] && empty($_SESSION['user'])){
-        //do login
-		$title = "Private event, you must login to access contents";
-		require_once('includes/header.php');
-        require_once('includes/login.php');
-        require_once('includes/footer.php');
+        //do login or register
+        if($page=='register'){
+            // display the registration form
+            require_once('includes/header.php');
+            require_once('includes/register.php');
+            require_once('includes/footer.php');
+        } else{
+            $title = "Private event, you must login to access contents";
+    		require_once('includes/header.php');
+            require_once('includes/login.php');
+            require_once('includes/footer.php');
+        }
     } else {
         //do required page
         switch($page){
