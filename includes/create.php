@@ -95,7 +95,15 @@
               }); 
               <?php if(isset($categories)){
                   echo("var data = {");
-                  foreach ($categories as $cat_id=>$cat){ $safe_cat = dirify($cat); echo("'$cat_id':'$cat',");}
+                  
+                  //foreach ($categories as $cat_id=>$cat){ $safe_cat = dirify($cat); echo("'$cat_id':'$cat',");}
+                  $string = array();
+                     foreach ( $categories as $cat_id => $cat ) {
+                         $string[] = '"'.$cat_id.'":"'.$cat.'"';
+
+                     }
+                     echo implode( ',', $string );
+                     
                   echo("};");
                }?>
               $('.editable_select').editable(base_url+"includes/load_jeditable.php", {

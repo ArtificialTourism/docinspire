@@ -9,8 +9,7 @@
 	<!-- BEGIN GALLERY -->
 		<div class="grid-wrap">
 	<div class="grid_4">
-		<div class="panel">
-			<h2 class="cap-static">Most recent inspiration</h2>
+		<div class="panel no-cap">
 			<?php if (isset($event_cards)&&count($event_cards)>0){?>
 			    <div id="gallery" class="content transitions-enabled infinite-scroll clearfix">
 				<?php $last_event_cards = array_reverse($event_cards); 
