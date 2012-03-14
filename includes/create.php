@@ -289,10 +289,10 @@
 		<div class="grid_1b align_right pad-h1  chi">
 		    <span id="saving_message">Saving card...</span>&nbsp;&nbsp;
 		    <span class="buttons-enab" style="display:none">
-			<a id="viewcard" href="#" onClick="viewcard()" class="button blue small">View card</a> <a href="#" onClick="trashcard()" class="button red small">Move to trash</a>
+			<a id="viewcard" href="#" onClick="viewcard()" class="button blue small">Finish edit</a> <a href="#" onClick="trashcard()" class="button red small">Move to trash</a>
 			</span>
 			<span class="buttons-disab">
-			<p href="#" class="button disabled small">View card</p> <?php if(isset($card_id)){ ?><p href="" class="button disabled small">Move to trash</p><?php } ?>
+			<p href="#" class="button disabled small">Finish edit</p> <?php if(isset($card_id)){ ?><p href="" class="button disabled small">Move to trash</p><?php } ?>
 			</span>
 		</div>
 	</div>

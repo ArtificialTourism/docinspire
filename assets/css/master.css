@@ -1559,13 +1559,13 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 }
 
 #name input, #question input, #description textarea, .ajaxupload input,#tag-it input,#message textarea{
-	font: bold 13px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font: bold 13px/15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 	color: #000;
 	border: 1px solid #ccc;
 	outline: none;
 	margin-bottom: .45em;
 	background-color: #ffffce;
-	padding: .5em;
+	padding: 5px;
 }
 #description textarea{
 	font-weight: normal;
@@ -1580,7 +1580,6 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 #name input{
 	font-weight: bold;
 	font-size: 21px;
-	padding: .2em;
 }
 
 #add-card #steep {
