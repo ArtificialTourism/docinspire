@@ -24,7 +24,7 @@ $(document).ready(function() {
 				foreach (array_slice($last_event_cards, 0, 24) as $card) { 
 				    if (isset($card->image)){
                         $img = UPLOADS_URL.$card->image.'_t.jpg';
-                        $img_headers = @get_headers($card_front);
+                        $img_headers = @get_headers($img);
                         if($img_headers[0] == 'HTTP/1.1 404 Not Found') {
                            $img = BASE_URL.'assets/images/no-image.gif';
                         }
