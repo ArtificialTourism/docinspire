@@ -1511,15 +1511,13 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	border-color: #ccc;
 }
 #gallery .box .title{
+	width: 240px;
 	color: #666;
-	padding-top: 1em;
-	padding-right: 1em;
-	padding-left: 1em;
+	padding: 10px;
+	margin-bottom: 0;
 }
 #gallery .box .title .s-cat-tag{
-	color: #fff;
-	font-size: 11px;
-	line-height: 16px;
+	
 }
 
 /* CARD FORM */

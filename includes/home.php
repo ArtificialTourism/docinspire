@@ -41,7 +41,7 @@ $(document).ready(function() {
 				?>
 				<!-- GALLERY ITEM -->
 				<div class="box">
-					<a title="<?php echo $card->name; ?>" href="index.php?do=view&card_id=<?php echo $card->id ?>"><img src="<?php echo $img; ?>" alt="" /><p class="title"><?php echo($card->name); ?><br /><span class="s-cat-tag <?php echo("cat-".$card->category_id); ?>"><?php echo($categories[$card->category_id]); ?></span></p></a>
+					<a title="<?php echo $card->name; ?>" href="index.php?do=view&card_id=<?php echo $card->id ?>"><img src="<?php echo $img; ?>" alt="" /><p class="title"><span class="name"><?php echo($card->name); ?></span><br /><span class="s-cat-tag <?php echo("cat-".$card->category_id); ?>"><?php echo($categories[$card->category_id]); ?></span></p></a>
 				</div>
 				<!-- END GALLERY ITEM -->
 				<?php unset($card); unset($img); } ?>
