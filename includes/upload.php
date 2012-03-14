@@ -12,7 +12,7 @@ if ((($_FILES['value']["type"] == "image/gif")
 || ($_FILES['value']["type"] == "image/jpeg")
 || ($_FILES['value']["type"] == "image/png")
 || ($_FILES['value']["type"] == "image/pjpeg"))
-&& ($_FILES['value']["size"] < 15728640)
+&& ($_FILES['value']["size"] < 15000000)
 && (!empty($_FILES['value']['tmp_name']))
 && ($_FILES['value']['tmp_name'] != 'none'))
   {       

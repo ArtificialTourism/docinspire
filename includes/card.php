@@ -8,7 +8,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
     $date = date('j F, Y \a\t g:i a',$card->ctime);
    if (isset($card->image)){
         $img = UPLOADS_URL.$card->image.'_l.jpg';
-        $img_headers = @get_headers($card_front);
+        $img_headers = @get_headers($img);
         if($img_headers[0] == 'HTTP/1.1 404 Not Found') {
            $img = BASE_URL.'assets/images/no-image.gif';
         }

@@ -237,6 +237,17 @@
  	</form>
  </div>
   <?php }?>
+  <?php
+  if (isset($card->image)){
+          $img = UPLOADS_URL.$card->image.'_l.jpg';
+          $img_headers = @get_headers($img);
+          if($img_headers[0] == 'HTTP/1.1 404 Not Found') {
+             $img = BASE_URL.'assets/images/no-image.gif';
+          }
+      } else{
+          $img = BASE_URL.'assets/images/no-image.gif';
+      }
+  ?>
 <!-- BEGIN PAGE BREADCRUMBS/TITLE -->
 <div class="container_4">
 	<div id="page-heading" class="clearfix">
@@ -263,7 +274,7 @@
 	<!-- BEGIN FORM STYLING -->
 	<div id="insight" class="grid_3b">
 		<div class="panel">
-		    <div id="img"><?php if(isset($card->image)){ echo ('<img src="'.UPLOADS_URL.$card->image.'_l.jpg" />');} ?></div>
+		    <div id="img"><img src="<?php echo $img?>" /></div>
 		    <div class="ajaxupload content no-cap">
 		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (4)'); }?></div>
 		    </p>
