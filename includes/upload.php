@@ -12,7 +12,7 @@ if ((($_FILES['value']["type"] == "image/gif")
 || ($_FILES['value']["type"] == "image/jpeg")
 || ($_FILES['value']["type"] == "image/png")
 || ($_FILES['value']["type"] == "image/pjpeg"))
-&& ($_FILES['value']["size"] < 15000000)
+&& ($_FILES['value']["size"] < 2000000)
 && (!empty($_FILES['value']['tmp_name']))
 && ($_FILES['value']['tmp_name'] != 'none'))
   {       
@@ -51,6 +51,6 @@ if ((($_FILES['value']["type"] == "image/gif")
           
 } else {			
 //print "No file has been uploaded.";
-	return die ("Please upload a valid gif, jpg or png under 15Mb");
+	return die ("Please upload a valid gif, jpg or png under 2MB");
 	//die();
 } 

@@ -330,7 +330,7 @@
                 </div>
                 <div id="img_info"<?php if (isset($card->image)&&$card->image!=""){ echo "class=\"completed\""; } ?>>
                 <h4>3. Image</h4>
-                <p>upload an image, sketch or graphic, which illustrates  your innovation at a glance. (Up to 15Mb in file size).</p>
+                <p>upload an image, sketch or graphic, which illustrates  your innovation at a glance. (Up to 2MB in file size).</p>
                 </div>
                 <div id="question_info"<?php if (isset($card->question)&&$card->question!=""){ echo "class=\"completed\""; } ?>>
                 <h4>4. Source</h4>
