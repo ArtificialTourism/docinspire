@@ -525,14 +525,16 @@ ul#main-navigation {
 /* comments panel */
 
 #message {
+	width: 94%;
 	margin-top: 0;
 	padding-top: 0;
 }
 
 #message span {
+	width: 101%;
 	display: block;
 	border: 1px solid #ebebeb;
-	padding: .5em .2em;
+	padding: .5em;
 }
 
 .comment {
@@ -1513,11 +1515,11 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 #gallery .box .title{
 	width: 240px;
 	color: #666;
-	padding: 10px;
+	padding: 10px 10px 7px;
 	margin-bottom: 0;
 }
 #gallery .box .title .s-cat-tag{
-	
+	font-size: 11px;
 }
 
 /* CARD FORM */
@@ -1529,6 +1531,30 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	background: url(../images/card_shdw_b.png) no-repeat center bottom;}
+#question, #img, .ajaxupload{
+	font-weight: bold;
+	font-size: 15px;
+}
+.ajaxupload{
+	color: #888;
+}
+.editables, .img-info{
+	width: 93%;
+	margin: 0 5px 5px;
+	padding: 10px 10px 1px;
+	color: #888;
+}
+.editables p, .img-info p{
+	border-top: 1px solid #ebebeb;
+	padding-top: 1em;
+}
+.img-info p.source{
+	border: none;
+	font-weight: bold;
+}
+.editables p:hover, .ajaxupload:hover{
+	color: #000;
+}
 #name{
 	margin-bottom: 6px;
 }
@@ -1541,20 +1567,23 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 #img img{
 	max-width: 100%;
 }
-#question, #description, #img, .ajaxupload{
-	font-weight: bold;
-	font-size: 15px;
-}
 
-#name input, #question input, #description textarea, .ajaxupload input{
+#name input, #question input, #description textarea, .ajaxupload input,#tag-it input,#message textarea{
 	font: bold 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-	border: none;
+	color: #000;
+	border: 1px solid #ccc;
 	outline: none;
 	margin-bottom: .45em;
-	background-color: #ffffea;
+	background-color: #ffffce;
 	padding: .5em;
 }
+#description textarea{
+	font-size: 13px;
+	font-weight: normal;
+	font-style: normal;
+}
 .ajaxupload input{
+	width: 100%;
 	background-color: #fff;
 	padding-left: 0;
 }

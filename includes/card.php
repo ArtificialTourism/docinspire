@@ -60,12 +60,20 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
 		    <div id="img">
 		   <img src='<?php echo $img; ?>' alt="<?php echo $card->name; ?> Front" />
 		   	</div>
-		</div>
-		<div class="panel">
-           <p id="question" class="content no-cap push-down"><?php if (isset($card)){ echo $card->question; }?></p>
-        </div>
-        <div class="panel">
-        <p id="description" class="content no-cap push-down"><?php if (isset($card->description)){ echo $card->description; }?></p>
+	        <?php if (isset($card->quetion)||isset($card->description)){
+		       echo("<div class=\"img-info\">");
+		       if (isset($card->question)){ 
+		           $url = $card->question;
+		           if (substr($url, 0, 7) != 'http://'){
+		               $url = '<a href="http://'.$url.'">'.$url.'</a>';
+		           } else{
+		               $url = '<a href="'.$url.'">'.substr($url, 7).'</a>';
+		           }
+		           echo ("<p class=\"source\">$url</p>");}
+		       if (isset($card->description)){ echo ("<p>".nl2br($card->description)."</p>");}
+		       echo("</div>");
+		   }?>
+		   
         </div>
 	</div>
 	<!-- END FORM STYLING -->

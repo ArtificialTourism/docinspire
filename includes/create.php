@@ -48,7 +48,7 @@
         }
       $(document).ready(function() { 
           if (card_id!="0"){
-                  togglebuttons("Inapiration saved.");
+                  togglebuttons("Inspiration saved.");
               }     
               $('#question').editable(base_url+'includes/load_jeditable.php',{
                   indicator : '<img src="assets/images/indicator.gif" alt="" />',
@@ -75,13 +75,18 @@
                    tooltip   : 'Click to edit...',
                    submitdata : function() {
                            togglebuttons("Saving...");
-                           return {controller:'card', card_id : card_id };
+                           return {controller:'card', card_id : card_id,orig: this.revert};
                    },
                    data: function(value) {
                        return (value);
                    },
-                   callback: function(value, settings) { 
-                      togglebuttons("Inspiration saved.");
+                   callback: function(value, settings) {
+                      if (value!=this.revert){
+                          togglebuttons("Inspiration saved.");
+                      } else{
+                          alert("Title is required");
+                          togglebuttons("Inspiration saved.");
+                      }
                    }
                });
               $('#description').editable(base_url+'includes/load_jeditable.php',{
@@ -89,17 +94,20 @@
                   indicator : '<img src="assets/images/indicator.gif" alt="" />', 
                   cancel    : 'Cancel',
                   submit    : 'OK',
-                  rows:'4',
+                  rows:'14',
                   placeholder : "Add Summary (5)",
                   submitdata : function() {
                           togglebuttons("Saving...");
-                          return {controller:'card', card_id : card_id };
+                          return {controller:'card', card_id : card_id};
                   },
                   data: function(value) {
-                    return (value == 'Add Summary (5)') ? '' : value;
+                      var retval = value.replace(/<br[\s\/]?>/gi, ''); 
+                    return (value == 'Add Summary (5)') ? '' : retval;
                   },
                   callback: function(value, settings) { 
                       var completed = (value != '') ? $("#fact_info").addClass("completed") : $("#fact_info").removeClass("completed");
+                      var retval = value.replace(/\n/gi, '<br />\n'); 
+                      $(this).html(retval);
                       togglebuttons("Inspiration saved.");
                    }
               }); 
@@ -294,14 +302,11 @@
 		<div class="panel">
 		    <div id="img"><img src="<?php echo $img?>" /></div>
 		    <div class="ajaxupload content no-cap">
-		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (4)'); }?></div>
-		    </p>
-		</div>
-		<div class="panel">
-           <p id="question" class="content no-cap push-down editable"><?php if (isset($card)){ echo $card->question; } else{ echo'Add Source (4)';} ?></p>
-        </div>
-        <div class="panel">
-             <p id="description" class="content no-cap push-down"><?php if (isset($card->description)){ echo $card->description; } else{ echo'Add Summary (5)';} ?></p>
+		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (3)'); }?></div>
+		    <div class="editables">
+             <p id="question" class="editable"><?php if (isset($card)){ echo $card->question; } else{ echo'Add Source (4)';} ?></p>
+             <p id="description" class="editable"><?php if (isset($card->description)){ echo nl2br($card->description); } else{ echo'Add Summary (5)';} ?></p>
+             </div>
         </div>
 	</div>
 	<!-- END FORM STYLING -->
