@@ -1,4 +1,11 @@
 <link rel="stylesheet" type="text/css" href="assets/css/jquery.taghandler.css">
+<?php if (isset($categories)&&isset($colours)){
+     echo("<style type='text/css'>\n");
+     foreach ($categories as $id=>$val){
+         echo(".cat-$id{ background-color: #$colours[$id]!important;}\n");
+     }
+     echo("</style>\n");
+ }?>
 <?php 
 //comments all
 if (isset($card)){
@@ -35,7 +42,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
 		<div class="grid-wrap title-event">
 		<div class="grid_3 title-crumbs">
 		    <h2 id="name" class=""><?php if (isset($card->name)){ echo $card->name;} ?></h1>
-			<?php if (isset($categories[$card->category_id])) {?><h2 id="category_id" class="category <?php echo $categories[$card->category_id]; ?>"><?php echo $categories[$card->category_id]; ?></h2><?php }?>
+			<?php if (isset($categories[$card->category_id])) {?><h2 id="category_id" class="category <?php if (isset($card)){ echo 'cat-'.$card->category_id; } else{ echo'grey';} ?>"><?php echo $categories[$card->category_id]; ?></h2><?php }?>
 		</div>
 		<div class="grid_1 align_right pad-h1  chi">
 			<?php if ((isset($_SESSION['user']->id) && $card->owner==$_SESSION['user']->id) || (isset($_SESSION['user']->id) && $_SESSION['user']->id==$_SESSION['event_owner']) ){?><a href="index.php?do=create&card_id=<?php echo $card->id ?>" class="button blue small">Edit card</a><?php }?>

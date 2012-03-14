@@ -7,10 +7,20 @@
  <script src="assets/js/jquery.jeditable.mini.js" type="text/javascript" charset="utf-8"></script>
  <script src="assets/js/jquery.jeditable.ajaxupload.js" type="text/javascript" charset="utf-8"></script>
  <script src="assets/js/jquery.ajaxfileupload.js" type="text/javascript"></script>
+ <?php if (isset($categories)&&isset($colours)){
+     echo("<style type='text/css'>\n");
+     foreach ($categories as $id=>$val){
+         echo(".cat-$id{ background-color: #$colours[$id]!important;}\n");
+         echo("#".dirify($val)." .ui-state-default,#".dirify($val)." .ui-widget-content .ui-state-default,#".dirify($val)." .ui-widget-header .ui-state-default { color: #$colours[$id]!important;border: 1px solid #$colours[$id]!important;background: #fff!important;padding: 0!important;}\n");
+         echo("#".dirify($val)."
+         .ui-state-hover, #".dirify($val).".ui-widget-content .ui-state-hover, #".dirify($val).".ui-widget-header .ui-state-hover, .ui-state-focus, #".dirify($val).".ui-widget-content .ui-state-focus,#".dirify($val)." .ui-widget-header .ui-state-focus { background-color: #$colours[$id]!important;color: #fff!important;}");
+         echo("#".dirify($val)." .ui-state-active, #".dirify($val)." .ui-widget-content #".dirify($val)." .ui-state-active, #".dirify($val)." .ui-widget-header .ui-state-active{ background-color: #$colours[$id]!important;color: #fff!important;}\n");
+     }
+     echo("</style>\n");
+ }?>
  <link rel="stylesheet" type="text/css" href="assets/css/jquery.taghandler.css">
  <!-- Tagg-handler -->
  <script src="assets/js/jquery.taghandler.js" type="text/javascript" charset="utf-8"></script>
- 
  <script type="text/javascript">
       /* <![CDATA[ */
       var base_url = "<?php echo BASE_URL;?>";
@@ -122,7 +132,7 @@
                   callback: function(value, settings) {
                       var newcat = data[parseInt(value)].toLowerCase();
                       $(this).html(newcat);
-                      $(this).parent().removeClass().addClass('category '+newcat);
+                      $(this).parent().removeClass().addClass('category '+'cat-'+value);
                       $(this).val(value);
                       togglebuttons("Card saved.");
                   }
@@ -239,7 +249,7 @@
  	   <p id="radio">
  	<?php foreach ($categories as $cat_id => $cat){
  	        $safe_name = dirify($cat);
-	        echo('<input type="radio" name="category_id" id="'.$safe_name.'" value="'.$cat_id.'" /><span id="'.$safe_name.'"><label for="'.$safe_name.'">'.$cat.'</label></span>'); } ?>
+	        echo('<input type="radio" name="category_id" id="'.$safe_name.'" value="'.$cat_id.'" /><span class="" id="'.$safe_name.'"><label for="'.$safe_name.'">'.$cat.'</label></span>'); } ?>
  	   <label for="category_id" class="error" generated="true"></label>
  	  </p>
  	</form>
@@ -262,7 +272,7 @@
 		<div class="grid-wrap title-event">
 		<div class="grid_3b title-crumbs">
 		    <h2 id="name" class="editable"><?php if (isset($card->name)){ echo $card->name; } else{ echo'Untitled (1)';} ?></h1>
-			<h2 id="category_id" class="category <?php if (isset($card)){ echo $categories[$card->category_id]; } else{ echo'grey';} ?>"><span class="editable_select"><?php if (isset($card)){ echo $categories[$card->category_id]; } else{ echo'category (2)';} ?></span></h2>
+			<h2 id="category_id" class="category <?php if (isset($card)){ echo 'cat-'.$card->category_id; } else{ echo'grey';} ?>"><span class="editable_select"><?php if (isset($card)){ echo $categories[$card->category_id]; } else{ echo'category (2)';} ?></span></h2>
 		</div>
 		<div class="grid_1b align_right pad-h1  chi">
 		    <span id="saving_message">Saving card...</span>&nbsp;&nbsp;

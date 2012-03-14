@@ -144,6 +144,7 @@ function get_name($owner) {
 	
     return $name;
 }
+
 /////////////////resize & crop function
 function CroppedThumbnail($imgSrc,$thumbnail_width,$thumbnail_height) { //$imgSrc is a FILE - Returns an image resource.
     //getting the image dimensions  

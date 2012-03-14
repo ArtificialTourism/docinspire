@@ -122,8 +122,17 @@ if ($_SESSION['event_name']){
                       //
                      $collection = callAPI('collection?id='.$_SESSION['event_coll_id'], array(), 'obj');
                      $categories = array();
+                     $colours = array();
+                     $count = 0;
                      foreach( $collection->categories as $cat){
                           $categories[$cat->id] = $cat->name;
+                          if ($collection->name!='steep'){
+                              $colours[$cat->id] = $cat_cols[$count];
+                          } else {
+                              $colours[$cat->id] = $steep_cols[$cat->id];
+                          }
+                          unset($cat);
+                          $count++;
                      }
                     
                      if (isset($card_id) && $card_id!='') {
@@ -179,8 +188,17 @@ if ($_SESSION['event_name']){
                 $_SESSION['card_id'] = $card_id;
                 $collection = callAPI('collection?id='.$_SESSION['event_coll_id'], array(), 'obj');
                  $categories = array();
+                 $colours = array();
+                 $count = 0;
                  foreach( $collection->categories as $cat){
                       $categories[$cat->id] = $cat->name;
+                      if ($collection->name!='steep'){
+                          $colours[$cat->id] = $cat_cols[$count];
+                      } else {
+                          $colours[$cat->id] = $steep_cols[$cat->id];
+                      }
+                      unset($cat);
+                      $count++;
                  }
                  if (isset($card_id)) {
                     $card_json = callAPI("card/get?id=".$card_id."&include_owner=1");
