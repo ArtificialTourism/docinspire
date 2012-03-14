@@ -120,7 +120,7 @@
                       return {controller:'card', id:"category_id",card_id : card_id};
                   },
                   callback: function(value, settings) {
-                      var newcat = data[value].toLowerCase();
+                      var newcat = data[parseInt(value)].toLowerCase();
                       $(this).html(newcat);
                       $(this).parent().removeClass().addClass('category '+newcat);
                       $(this).val(value);
