@@ -31,7 +31,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
     	<div id="page-heading" class="clearfix">
     		<div class="grid-wrap title-event">
     		<div class="grid_2 title-crumbs">
-    		    <h2 id="name" class="">Card not found</h2>
+    		    <h2 id="name" class="">Item not found</h2>
     		</div>
     	</div>
     </div>

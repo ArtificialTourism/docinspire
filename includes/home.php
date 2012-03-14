@@ -1,3 +1,10 @@
+<?php if (isset($categories)&&isset($colours)){
+     echo("<style type='text/css'>\n");
+     foreach ($categories as $id=>$val){
+         echo(".cat-$id{ color: #$colours[$id]!important;}\n");
+     }
+     echo("</style>\n");
+ }?>
 <script type="text/javascript">
 /* <![CDATA[ */
 $(document).ready(function() {
@@ -34,7 +41,7 @@ $(document).ready(function() {
 				?>
 				<!-- GALLERY ITEM -->
 				<div class="box">
-					<a class="clue" title="<?php echo $card->name; ?>" href="index.php?do=view&card_id=<?php echo $card->id ?>"><img src="<?php echo $img; ?>" alt="" /></a>
+					<a title="<?php echo $card->name; ?>" href="index.php?do=view&card_id=<?php echo $card->id ?>"><img src="<?php echo $img; ?>" alt="" /><p class="title"><?php echo($card->name); ?><br /><span class="s-cat-tag <?php echo("cat-".$card->category_id); ?>"><?php echo($categories[$card->category_id]); ?></span></p></a>
 				</div>
 				<!-- END GALLERY ITEM -->
 				<?php unset($card); unset($img); } ?>

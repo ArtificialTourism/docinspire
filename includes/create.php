@@ -34,7 +34,7 @@
       var card_owner = '<?php if (isset($card->owner)){ echo ($card->owner); } else{ echo(''); } ?>';
         function togglebuttons(saving){
               $("#saving_message").html(saving);
-              if(saving == "Card saved."){
+              if(saving == "Inspiration saved."){
                      $('.buttons-disab').hide();
                      $('.buttons-enab').show();
               } else{
@@ -48,7 +48,7 @@
         }
       $(document).ready(function() { 
           if (card_id!="0"){
-                  togglebuttons("Card saved.");
+                  togglebuttons("Inapiration saved.");
               }     
               $('#question').editable(base_url+'includes/load_jeditable.php',{
                   indicator : '<img src="assets/images/indicator.gif" alt="" />',
@@ -64,7 +64,7 @@
                       return (value);
                   },
                   callback: function(value, settings) { 
-                     togglebuttons("Card saved.");
+                     togglebuttons("Inspiration saved.");
                      var completed = (value != '') ? $("#question_info").addClass("completed") : $("#question_info").removeClass("completed");
                   }
               });
@@ -81,7 +81,7 @@
                        return (value);
                    },
                    callback: function(value, settings) { 
-                      togglebuttons("Card saved.");
+                      togglebuttons("Inspiration saved.");
                    }
                });
               $('#description').editable(base_url+'includes/load_jeditable.php',{
@@ -100,7 +100,7 @@
                   },
                   callback: function(value, settings) { 
                       var completed = (value != '') ? $("#fact_info").addClass("completed") : $("#fact_info").removeClass("completed");
-                      togglebuttons("Card saved.");
+                      togglebuttons("Inspiration saved.");
                    }
               }); 
               <?php if(isset($categories)){
@@ -134,7 +134,7 @@
                       $(this).html(newcat);
                       $(this).parent().removeClass().addClass('category '+'cat-'+value);
                       $(this).val(value);
-                      togglebuttons("Card saved.");
+                      togglebuttons("Inspiration saved.");
                   }
               });
 
@@ -150,10 +150,10 @@
                        },
                        callback: function(value) {
                            if (value=='true'){
-                               togglebuttons("Card saved.");
+                               togglebuttons("Inspiration saved.");
                                $("#img_info").addClass("completed");
                            } else {
-                               togglebuttons("Card saved.")
+                               togglebuttons("Inspiration saved.")
                            }
                        }
               });
@@ -200,7 +200,7 @@
                      buttons: {
                          "create": function(){ 
                              if($("#newcard").valid()){
-                                 var action = 'controller=card&action=post&'+$("#newcard").serialize()+"&type=Card&topic_id=1&owner="+owner_id;
+                                 var action = 'controller=card&action=post&'+$("#newcard").serialize()+"&type=Inspire&topic_id=1&owner="+owner_id;
                                  $(".ui-dialog-buttonset").html("<img src=\"assets/images/indicator.gif\" alt=\"\" /> Saving card...");
                                  $.post('includes/load.php', action, function(data) {
                                               var card = eval(jQuery.parseJSON(data));
@@ -215,7 +215,7 @@
                                                           $('#name').html(card.name);
                                                           $('#category_id .editable_select').html(categories[card.category_id]);
                                                           $('#category_id').removeClass().addClass('category '+categories[card.category_id]);
-                                                          togglebuttons("Card saved.");
+                                                          togglebuttons("Inspiration saved.");
                                                           $("#issue_info").addClass("completed");
                                                           $("#steep_info").addClass("completed");
                                                       }
@@ -230,7 +230,7 @@
       $( "#radio" ).buttonset();
       $("#newcard").validate({
           rules: { name: "required", category_id:"required"},
-          messages: { name: "Please enter your card's issue", category_id: "Please choose a category"},
+          messages: { name: "Please enter your inspiration's title", category_id: "Please choose a category"},
           //errorElement: "span",
 
       });
@@ -309,7 +309,7 @@
 	 	 The simplest one of all, just some regular ol' text in a panel. -->
 	<div class="grid_1b">
 		<div class="panel card_info">
-    		    <h2 class="cap">Card components</h2>
+    		    <h2 class="cap">Inspiration components</h2>
     		   <div class="content" >
     		    <div id="issue_info"<?php if (isset($card->name)&&$card->name!=""){ echo " class=\"completed\""; } ?>>
 				<h4>1. Title</h4>
@@ -331,11 +331,6 @@
                 <div id="fact_info"<?php if (isset($card->description)&&$card->description!=""){ echo "class=\"completed\""; } ?>>
                 <h4>5. Summary</h4>
                 <p>Tell us a bit more about your insight/innovation? What it is? What makes it so compelling you submitted it? (in about 40 words or less)</p>
-                <!-- <form id="tag-it" action="javascript:void(0);">
-                                    <h4>Tags</h4>
-                                    <p>Additionally, you can add some <b>tags</b> or keywords below to describe your card's topic:</p>
-                                    
-                                </form> -->
                 </div>
 			</div>
 		</div>

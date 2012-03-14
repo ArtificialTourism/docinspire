@@ -1500,12 +1500,26 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	float: right;
 }
 
-#gallery .box {
+#gallery .box a {
 	border: 1px solid #ebebeb;
 	padding: 1px;
 	margin-bottom: 16px;
 	margin-right: 16px;
 	float: left;
+}
+#gallery .box a:hover{
+	border-color: #ccc;
+}
+#gallery .box .title{
+	color: #666;
+	padding-top: 1em;
+	padding-right: 1em;
+	padding-left: 1em;
+}
+#gallery .box .title .s-cat-tag{
+	color: #fff;
+	font-size: 11px;
+	line-height: 16px;
 }
 
 /* CARD FORM */

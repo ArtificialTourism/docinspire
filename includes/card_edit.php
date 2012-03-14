@@ -7,7 +7,7 @@
 $(document).ready(function() {
     $('a.clue').aToolTip();
     function togglebuttons(){
-        if(($('#name').html()!='Click here to add your card\'s issue (1)')&&($('#category_id').html()!='<span class="editable_select" title="Click to edit...">select category (2)</span>')){
+        if(($('#name').html()!='Click here to add your inspiration\'s title (1)')&&($('#category_id').html()!='<span class="editable_select" title="Click to edit...">select category (2)</span>')){
                $('.buttons-disab').hide();
                $('.buttons-enab').show();
         } else{
@@ -26,7 +26,7 @@ $(document).ready(function() {
         },
         data: function(value) {
          switch (value){
-            case 'Click here to add your card\'s issue (1)':
+            case 'Click here to add your inspiration\'s title (1)':
             return ('');
             break;
             case 'Add Question (4)':
@@ -94,7 +94,7 @@ $(document).ready(function() {
 	<div id="page-heading" class="clearfix">
 		<div class="grid-wrap title-event">
 		<div class="grid_2 title-crumbs">
-		    <h2 id="name" class="editable"><?php if (isset($card->name)){ echo $card->name; } else{ echo'Click here to add your card\'s issue (1)';} ?></h1>
+		    <h2 id="name" class="editable"><?php if (isset($card->name)){ echo $card->name; } else{ echo'Click here to add your inspiration\'s title (1)';} ?></h1>
 			<h2 id="category_id" class="category <?php if (isset($card)){ echo $steep[$card->category_id]; } else{ echo'grey';} ?>"><span class="editable_select"><?php if (isset($card)){ echo $steep[$card->category_id]; } else{ echo'select category (2)';} ?></span></h2>
 		</div>
 		<div class="grid_2 align_right pad-h1  chi">

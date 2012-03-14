@@ -318,8 +318,21 @@ if ($_SESSION['event_name']){
              }
              //get cards for event
              $event_cards_json = callAPI("card?event_id=".$_SESSION['event_id']);
+             $collection = callAPI('collection?id='.$_SESSION['event_coll_id'], array(), 'obj');
+              $categories = array();
+              $colours = array();
+              $count = 0;
+              foreach( $collection->categories as $cat){
+                   $categories[$cat->id] = $cat->name;
+                   if ($collection->name!='steep'){
+                       $colours[$cat->id] = $cat_cols[$count];
+                   } else {
+                       $colours[$cat->id] = $steep_cols[$cat->id];
+                   }
+                   unset($cat);
+                   $count++;
+              }
              if (isset($event_cards_json)) {$event_cards = json_decode($event_cards_json);}
-             //@todo: get arup cards
              require_once('includes/header.php');
              require_once('includes/home.php');
              require_once('includes/footer.php');
