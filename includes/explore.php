@@ -1,4 +1,12 @@
-<div class="container_4 push-up">
+<?php if (isset($categories)&&isset($colours)){
+     echo("<style type='text/css'>\n");
+     foreach ($categories as $id=>$val){
+         echo(".cat-$id{ color: #$colours[$id]!important;}\n");
+         echo("#gallery .box.cat-$id a{ border-bottom: 1px solid #$colours[$id]!important;}\n");
+     }
+     echo("</style>\n");
+ }?>
+ <div class="container_4 push-up">
     <script type="text/javascript">
     /* <![CDATA[ */
     $(document).ready(function() {
@@ -9,7 +17,8 @@
 	<!-- BEGIN GALLERY -->
 		<div class="grid-wrap">
 	<div class="grid_4">
-		<div class="panel no-cap">
+	    <div class="panel">
+			<h2 class="cap-static">Inspiration</h2>
 			<?php if (isset($event_cards)&&count($event_cards)>0){?>
 			    <div id="gallery" class="content transitions-enabled infinite-scroll clearfix">
 				<?php $last_event_cards = array_reverse($event_cards); 
@@ -25,8 +34,8 @@
                     }
 				?>
 				<!-- GALLERY ITEM -->
-				<div class="box">
-					<a class="clue" title="<?php echo $card->name; ?>" href="index.php?do=view&card_id=<?php echo $card->id ?>"><img src="<?php echo $img; ?>" alt="" /></a>
+				<div class="box <?php echo("cat-".$card->category_id); ?>">
+					<a title="<?php echo $card->name; ?>" href="index.php?do=view&card_id=<?php echo $card->id ?>"><img src="<?php echo $img; ?>" alt="" /><p class="title"><span class="name"><?php echo($card->name); ?></span><br /><span class="s-cat-tag <?php echo("cat-".$card->category_id); ?>"><?php echo($categories[$card->category_id]); ?></span></p></a>
 				</div>
 				<!-- END GALLERY ITEM -->
 				<?php unset($card); unset($img); } ?>
@@ -38,7 +47,6 @@
             </nav>
 		</div>
 		<!-- END PANEL -->
-		
 	</div>
 	<!-- END GRID_4/GALLERY -->
 	</div>
