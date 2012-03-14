@@ -27,8 +27,10 @@ $(document).ready(function() {
                         $img = UPLOADS_URL.$card->image.'_t.jpg';
                         $img_headers = @get_headers($card_front);
                         if($img_headers[0] == 'HTTP/1.1 404 Not Found') {
-                           $img ="false";
+                           $img = BASE_URL.'assets/images/no-image.gif';
                         }
+                    } else{
+                        $img = BASE_URL.'assets/images/no-image.gif';
                     }
 				?>
 				<!-- GALLERY ITEM -->

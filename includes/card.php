@@ -6,10 +6,14 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
     $comments = json_decode($comments_json);
     //var_dump($card);
     $date = date('j F, Y \a\t g:i a',$card->ctime);
-    $image = UPLOADS_URL.$card->image.'_l.jpg';
-    $img_headers = @get_headers($image);
-    if($img_headers[0] == 'HTTP/1.1 404 Not Found') {
-        $image="false";
+   if (isset($card->image)){
+        $img = UPLOADS_URL.$card->image.'_l.jpg';
+        $img_headers = @get_headers($card_front);
+        if($img_headers[0] == 'HTTP/1.1 404 Not Found') {
+           $img = BASE_URL.'assets/images/no-image.gif';
+        }
+    } else{
+        $img = BASE_URL.'assets/images/no-image.gif';
     }
 } else{
     //@todo -- throw error
@@ -41,14 +45,13 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
 	</div>
 </div>
 <!-- END PAGE BREADCRUMBS/TITLE -->
-
 <div class="container_4">
     <div class="grid-wrap">
 	<!-- BEGIN FORM STYLING -->
 	<div class="grid_3b">
 		<div class="panel">
 		    <div id="img">
-		   <img src='<?php echo $image; ?>' alt="<?php echo $card->name; ?> Front" />
+		   <img src='<?php echo $img; ?>' alt="<?php echo $card->name; ?> Front" />
 		   	</div>
 		</div>
 		<div class="panel">

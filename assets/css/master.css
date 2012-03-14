@@ -1521,7 +1521,8 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	margin-bottom: 6px;
 }
 #img {
-	background-color: #eee;
+	background-color: #f1f0f0;
+	text-align: center;
 }
 #img img{
 	max-width: 100%;
