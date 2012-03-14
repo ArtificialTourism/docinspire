@@ -61,9 +61,12 @@
                           return {controller:'card', card_id : card_id };
                   },
                   data: function(value) {
-                      return (value);
+                      var retval = value.substring(8)
+                      return (retval);
                   },
                   callback: function(value, settings) { 
+                     var retval = "Source: "+value;
+                     $(this).html(retval);
                      togglebuttons("Inspiration saved.");
                      var completed = (value != '') ? $("#question_info").addClass("completed") : $("#question_info").removeClass("completed");
                   }
@@ -94,6 +97,7 @@
                   indicator : '<img src="assets/images/indicator.gif" alt="" />', 
                   cancel    : 'Cancel',
                   submit    : 'OK',
+                  tooltip   : 'Click to edit...',
                   rows:'14',
                   placeholder : "Add Summary (5)",
                   submitdata : function() {
@@ -304,7 +308,7 @@
 		    <div class="ajaxupload content no-cap">
 		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (3)'); }?></div>
 		    <div class="editables">
-             <p id="question" class="editable"><?php if (isset($card)){ echo $card->question; } else{ echo'Add Source (4)';} ?></p>
+             <p id="question" class="editable">Source: <?php if (isset($card)){ echo $card->question; } else{ echo'Add Source (4)';} ?></p>
              <p id="description" class="editable"><?php if (isset($card->description)){ echo nl2br($card->description); } else{ echo'Add Summary (5)';} ?></p>
              </div>
         </div>

@@ -150,26 +150,20 @@ body {
 	height: 36px;
 	padding-top: 4px;
 }
-#eyebrow-navigation a.home{
+#eyebrow-navigation .home a.tab{
+	background-color: #fff;
+	color: #000;
 	display: block;
 	float: left;
-	padding: 0;
+	padding: 9px 10px 12px;
 }
-#eyebrow-navigation a.home span{
+#eyebrow-navigation .home span{
 	color: #fff;
 	display: block;
 	float: left;
 	padding: 9px 10px 12px;
 }
-
-#eyebrow-navigation a.home span.tab{
-	background-color: #fff;
-	color: #000;
-}
-#eyebrow-navigation a.home:hover span{
-	color: #90b1d4;
-}
-#eyebrow-navigation a.home:hover span.tab{
+#eyebrow-navigation a.tab:hover{
 	color: #266eaa;
 }
 #eyebrow-navigation .user_nav{
@@ -1531,10 +1525,6 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	background: url(../images/card_shdw_b.png) no-repeat center bottom;}
-#question, #img, .ajaxupload{
-	font-weight: bold;
-	font-size: 15px;
-}
 .ajaxupload{
 	color: #888;
 }
@@ -1550,7 +1540,7 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 }
 .img-info p.source{
 	border: none;
-	font-weight: bold;
+	color: #999;
 }
 .editables p:hover, .ajaxupload:hover{
 	color: #000;
@@ -1569,7 +1559,7 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 }
 
 #name input, #question input, #description textarea, .ajaxupload input,#tag-it input,#message textarea{
-	font: bold 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font: bold 13px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 	color: #000;
 	border: 1px solid #ccc;
 	outline: none;
@@ -1578,7 +1568,6 @@ text-decoration:none; margin: 0 6px 0 0; padding: 7px 9px; display:inline-block;
 	padding: .5em;
 }
 #description textarea{
-	font-size: 13px;
 	font-weight: normal;
 	font-style: normal;
 }
