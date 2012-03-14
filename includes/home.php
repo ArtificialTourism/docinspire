@@ -10,9 +10,8 @@ $(document).ready(function() {
     <div class="grid-wrap push-up">
   	<div class="grid_3 push-down">
 		<?php echo nl2br($event->description) ?>
-		<div>
+	</div>
     </div>
-</div>
 </div>
 <div class="container_4">
     <div class="grid-wrap">
