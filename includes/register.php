@@ -39,8 +39,7 @@ $(document).ready(function() {
      				required: "Username is required",
      				remote: jQuery.validator.format("{0} is already taken, please enter a different username.")	
      			}
-    },
-           // debug:true
+    }
      
      
     });
