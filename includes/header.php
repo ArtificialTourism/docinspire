@@ -32,13 +32,11 @@
 <!--	Load the Fancybox stylesheet. You can remove this if you
 		are not going to be lightboxing any images. -->
 <!-- <link rel="stylesheet" href="assets/js/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" /> -->
-<link rel="stylesheet" href="assets/css/atooltip.css" type="text/css" media="screen" />
 <!--	Load the jQuery Library - We're loading in the header because there are quite a few dependencies that require
 		The library while the rest of the page loads. These include Highcharts and the Tablesorter scripts. -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <!--	Load the custom script resize + gallery functionality -->
 <script src="assets/js/custom.js" type="text/javascript"></script>
-<script src="assets/js/jquery.atooltip.min.js" type="text/javascript"></script>
 <!--	Set up the responsive design sizes. -->
 <script type="text/javascript">
 /* <![CDATA[ */
