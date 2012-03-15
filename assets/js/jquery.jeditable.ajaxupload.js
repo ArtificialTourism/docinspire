@@ -57,7 +57,7 @@ $.editable.addInputType('ajaxupload', {
                     if (data.substring(0, 4) == 'http') {
                         callback("true");
  							//var img_path = '#ebebeb url(' + data + ') no-repeat center center';
-							$('#img').html('<img src="'+data+'" />');
+							$('#img').html('<img src="'+data+'_l.jpg" />');
 	                        $(original).html('<span>Wrong image? Click here to change it.</span>');
                         
                     } else {
