@@ -65,7 +65,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
 		       if (isset($card->question)){ 
 		           $url = $card->question;
 		           if (substr($url, 0, 7) == 'http://'){
-		               $url = '<a href="'.$url.'" target="_blank">'.substr($url, 7).'</a>';
+		               $url = '<a href="'.$url.'" target="_blank">'.$url.'</a>';
 		           }
 		           echo ("<p class=\"source\">Source: <strong>$url</strong></p>");}
 		       if (isset($card->description)){ echo ("<p>".nl2br($card->description)."</p>");}
