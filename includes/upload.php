@@ -58,11 +58,11 @@ function checkType($inMimeArray, $fieldName){
 
                 }else{
                         unlink($_FILES[$fieldName]["tmp_name"]);
-                        return die ("There was a problem saving the file.");
+                        return die ("<span class=\"red\">There was a problem saving the file.</span>");
                 }
 
         }else{
-                return die ("There was a problem saving the file.");
+                return die ("<span class=\"red\">There was a problem saving the file.</span>");
 
         }
 
@@ -79,6 +79,10 @@ function checkType($inMimeArray, $fieldName){
 if(isset($_FILES["value"]["size"]) && $_FILES["value"]["size"] > 0){
 
         if(is_uploaded_file($_FILES['value']['tmp_name'])){
+               
+                if($_FILES["value"]["size"] > 2000000){
+                    return die ("<span class=\"red\">File size must be under 2MB.</span>");
+                }
 
                 $allowedTypes   = array("image/gif",
                                         "image/jpeg",
@@ -121,18 +125,20 @@ if(isset($_FILES["value"]["size"]) && $_FILES["value"]["size"] > 0){
                                       //return file name
                                       echo(UPLOADS_URL.$new_filename);
                                     }else{
-                                      return die ("There was a problem saving the file.");
+                                      return die ("<span class=\"red\">There was a problem saving the file.</span>");
                                   }
                               }else{
-                                  return die ("There was a problem saving the file.");
+                                  return die ("<span class=\"red\">There was a problem saving the file.</span>");
                               }
                         
                 }
 
         }else{
-            return die ("There was a problem saving the file.");
+            return die ("<span class=\"red\">There was a problem saving the file.</span>");
         }
 
+} else{
+    return die ("<span class=\"red\">Please upload a valid jpg, gif or png under 2MB.</span>");
 }
 
 ?>
