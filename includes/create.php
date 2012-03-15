@@ -318,7 +318,7 @@
 		    <div class="ajaxupload content no-cap">
 		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (3)'); }?></div>
 		    <div class="editables">
-             <p id="question" class="editable"><?php if (isset($card)){ echo "Source: ".$card->question; } else{ echo'Add Source (4)';} ?></p>
+             <p id="question" class="editable"><?php if (isset($card->question)){ echo "Source: ".$card->question; } else{ echo'Add Source (4)';} ?></p>
              <p id="description" class="editable"><?php if (isset($card->description)){ echo nl2br($card->description); } else{ echo'Add Summary (5)';} ?></p>
              </div>
         </div>
