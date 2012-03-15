@@ -1,5 +1,5 @@
  <link rel="stylesheet" href="assets/css/jquery-ui/jquery-ui-1.8.16.custom.css" type="text/css" media="all" />
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
  <?php if ($card_id==0){  ?>
  <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
  <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/branches/dev/ui/jquery.ui.button.js"></script>
