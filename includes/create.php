@@ -46,6 +46,16 @@
              window.location.href = 'index.php?do=view&card_id='+card_id;
              return false;
         }
+        function trashcard(){
+            var action = 'controller=card&action=put&status=deleted&id='+card_id;
+            alert(action);
+            $.post('includes/load.php', 'controller=card&action=put&id='+card_id+'&status=deleted' , function(data) {
+                      var card = eval(jQuery.parseJSON(data));
+                      if(card.id) {
+                      alert(card.status);
+                  }
+             }).error(function() { alert("error"); })
+        }
       $(document).ready(function() { 
           if (card_id!="0"){
                   togglebuttons("Inspiration saved.");
@@ -289,7 +299,7 @@
 		<div class="grid_1b align_right pad-h1  chi">
 		    <span id="saving_message">Saving card...</span>&nbsp;&nbsp;
 		    <span class="buttons-enab" style="display:none">
-			<a id="viewcard" href="#" onClick="viewcard()" class="button blue small">Finish edit</a> <a href="#" onClick="trashcard()" class="button red small">Move to trash</a>
+			<a id="viewcard" href="#" onClick="viewcard()" class="button blue small">Finish edit</a> <a href="#" onClick="" class="button red small">Move to trash</a>
 			</span>
 			<span class="buttons-disab">
 			<p href="#" class="button disabled small">Finish edit</p> <?php if(isset($card_id)){ ?><p href="" class="button disabled small">Move to trash</p><?php } ?>
@@ -308,7 +318,7 @@
 		    <div class="ajaxupload content no-cap">
 		    <?php if (isset($card->image)){ echo ( 'Wrong image? Click here to change it.'); } else{ echo('Upload Image (3)'); }?></div>
 		    <div class="editables">
-             <p id="question" class="editable">Source: <?php if (isset($card)){ echo $card->question; } else{ echo'Add Source (4)';} ?></p>
+             <p id="question" class="editable"><?php if (isset($card)){ echo "Source: ".$card->question; } else{ echo'Add Source (4)';} ?></p>
              <p id="description" class="editable"><?php if (isset($card->description)){ echo nl2br($card->description); } else{ echo'Add Summary (5)';} ?></p>
              </div>
         </div>
