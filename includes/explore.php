@@ -7,13 +7,6 @@
      echo("</style>\n");
  }?>
  <div class="container_4 push-up">
-    <script type="text/javascript">
-    /* <![CDATA[ */
-    $(document).ready(function() {
-        $('a.clue').aToolTip();
-    });
-    /* ]]> */
-    </script>
 	<!-- BEGIN GALLERY -->
 		<div class="grid-wrap">
 	<div class="grid_4">
