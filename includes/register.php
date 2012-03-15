@@ -14,7 +14,7 @@ $(document).ready(function() {
                 required: true, 
                  remote: {
                      url:baseurl+'includes/username_unique.php',
-                     type: 'post',
+                     type: 'post'
                  }
             },
             password: { 
