@@ -46,15 +46,24 @@
              window.location.href = 'index.php?do=view&card_id='+card_id;
              return false;
         }
+        //display a confirmation box
+	    function confirmDelete() {
+            var deleteitem = confirm("Are you sure you want to delete this item?"); 
+            //if the user presses the "OK" button delete
+            if (deleteitem){
+                var action = 'controller=card&action=delete&id='+card_id;
+                $.post('includes/load.php', action, function(data) {
+                   if (data=='false'){
+                       alert('Card deleted');
+                       window.location.href = 'index.php';
+                       return false;
+                   } else {alert("There was a problem deleting this item, please try again later."); }
+                 }).error(function() { alert("There was a problem deleting this item, please try again later."); })
+            }
+        }
         function trashcard(){
-            var action = 'controller=card&action=put&status=deleted&id='+card_id;
-            alert(action);
-            $.post('includes/load.php', 'controller=card&action=put&id='+card_id+'&status=deleted' , function(data) {
-                      var card = eval(jQuery.parseJSON(data));
-                      if(card.id) {
-                      alert(card.status);
-                  }
-             }).error(function() { alert("error"); })
+            confirmDelete();
+            return false;
         }
       $(document).ready(function() { 
           if (card_id!="0"){
@@ -294,7 +303,7 @@
 		<div class="grid_1b align_right pad-h1  chi">
 		    <span id="saving_message">Saving card...</span>&nbsp;&nbsp;
 		    <span class="buttons-enab" style="display:none">
-			<a id="viewcard" href="#" onClick="viewcard()" class="button blue small">Finish edit</a> <a href="#" onClick="" class="button red small">Move to trash</a>
+			<a id="viewcard" href="#" onClick="viewcard()" class="button blue small">Finish edit</a> <a href="#" onClick="trashcard()" class="button red small">Delete this item</a>
 			</span>
 			<span class="buttons-disab">
 			<p href="#" class="button disabled small">Finish edit</p> <?php if(isset($card_id)){ ?><p href="" class="button disabled small">Move to trash</p><?php } ?>
