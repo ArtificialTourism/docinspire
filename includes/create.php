@@ -197,10 +197,7 @@
              updateURL: 'includes/load_tags.php',
              autoUpdate: true,
              delimiter: " ",
-             sortTags: false,
-             //initLoad: false,
-            //onAdd: function(tag) { alert('Added tag: ' + tag); },
-            //onDelete: function(tag) { alert('Deleted tag: ' + tag);}
+             sortTags: false
          });
          
 	    });
@@ -252,9 +249,7 @@
       $( "#radio" ).buttonset();
       $("#newcard").validate({
           rules: { name: "required", category_id:"required"},
-          messages: { name: "Please enter your inspiration's title", category_id: "Please choose a category"},
-          //errorElement: "span",
-
+          messages: { name: "Please enter your inspiration's title", category_id: "Please choose a category"}
       });
  });
       /* ]]> */
