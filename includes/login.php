@@ -24,12 +24,12 @@ $(document).ready(function() {
     var validator = $("#loginform").validate({ 
          rules: { 
             username: "required", 
-            password: "required", 
+            password: "required"
     },
     errorElement: "span",
      messages: {
      	 username: "Username required", 
-         password: "Password required",	
+         password: "Password required"
     },
     
        debug:true
