@@ -23,43 +23,47 @@ if ($_POST) {
   }
   }
   }
-  if ($controller=='user' && $_POST['organisation']){
-        $post_org = callAPI('organisation/post?name='.$_POST['organisation']);
-        $org = json_decode($post_org);
-        $options['organisation_id']=$org->id;
-  }
-  if( $action=='post'||$action=='put'||$action=='delete' ) {
-    if(!is('user') && $controller!='user') {
-        //must be logged in for POST|PUT|DELETE
-        echo "Not logged in; can't POST|PUT|DELETE";
-        die;
-  	}
-  }
-  $myURL = $controller.'/'.$action.'?'; 
-  $myURL .= http_build_query($options,'','&');
-  $myjson = callAPI($myURL);
-  if ($myjson!=''){
-       $mydata = json_decode($myjson);
-       if ($controller=='event'){
-            echo "Event saved.";
-       } else{
-            if ($controller=='username'){
-                if ($mydata->id){echo 'false';}else{echo 'true';}
-            } else{
-                if ($controller=='user'&&$action=='post'){
-                    $_SESSION['from_reg']="true";
+  if (isset($controller)){
+      if ($controller=='user' && $_POST['organisation']){
+            $post_org = callAPI('organisation/post?name='.$_POST['organisation']);
+            $org = json_decode($post_org);
+            $options['organisation_id']=$org->id;
+      }
+      if( $action=='post'||$action=='put'||$action=='delete' ) {
+        if(!is('user') && $controller!='user') {
+            //must be logged in for POST|PUT|DELETE
+            echo "Not logged in; can't POST|PUT|DELETE";
+            die;
+      	}
+      }
+      $myURL = $controller.'/'.$action.'?'; 
+      $myURL .= http_build_query($options,'','&');
+      $myjson = callAPI($myURL);
+      if ($myjson!=''){
+           $mydata = json_decode($myjson);
+           if ($controller=='event'){
+                echo "Event saved.";
+           } else{
+                if ($controller=='username'){
+                    if ($mydata->id){echo 'false';}else{echo 'true';}
+                } else{
+                    if ($controller=='user'&&$action=='post'){
+                        $_SESSION['from_reg']="true";
+                    }
+                    echo($myjson);
                 }
-                echo($myjson);
-            }
-         die;
-       }
-    }else{
-        if ($action=='delete'){
-            echo 'false';
+             die;
+           }
         }else{
-        echo "There was a problem saving your $controller, please try again later.";
-    }
-        die;
-    }
+            if ($action=='delete'){
+                echo 'false';
+            }else{
+            echo "There was a problem saving your $controller, please try again later.";
+        }
+            die;
+        }
+} else{
+    die;
+}
   
 ?>
