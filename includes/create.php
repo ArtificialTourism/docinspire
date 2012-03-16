@@ -53,12 +53,11 @@
             if (deleteitem){
                 var action = 'controller=card&action=delete&id='+card_id;
                 $.post('includes/load.php', action, function(data) {
-                   alert(data)
-                   if (data=="false"){
+                  
                        alert('Card deleted');
                        window.location.href = 'index.php';
                        return false;
-                   } else {alert("There was a problem deleting this item, please try again later."); }
+                   
                  }).error(function() { alert("There was a problem deleting this item, please try again later."); })
             }
         }
