@@ -15,7 +15,7 @@
 			<?php if (isset($event_cards)&&count($event_cards)>0){?>
 			    <div id="gallery" class="content transitions-enabled infinite-scroll clearfix">
 				<?php $last_event_cards = array_reverse($event_cards); 
-				foreach (array_slice($last_event_cards, 0, 24) as $card) { 
+				foreach ($last_event_cards as $card) { 
 				    if (isset($card->image)){
                         $img = UPLOADS_URL.$card->image.'_t.jpg';
                         $img_headers = @get_headers($img);
