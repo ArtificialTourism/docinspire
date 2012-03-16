@@ -53,7 +53,8 @@
             if (deleteitem){
                 var action = 'controller=card&action=delete&id='+card_id;
                 $.post('includes/load.php', action, function(data) {
-                   if (data=='false'){
+                    alert(data)
+                   if (data=="false"){
                        alert('Card deleted');
                        window.location.href = 'index.php';
                        return false;
