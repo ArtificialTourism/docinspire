@@ -183,7 +183,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
         $("#star-counter").html("&hellip;");
         $.post('includes/load.php', 'controller=cardtags&action='+action+'&card_id='+card_id+'&tag_id=7&owner='+curr_user_id, function(data) {
                  alert(action+" "+data);
-                  if (action=='delete' && data=='false'){
+                  if (action=='delete' && (data=='false'||data==false)){
                         toggle_display(false);
                   } else if (action=='post' && data){
                       var star = eval(jQuery.parseJSON(data));
