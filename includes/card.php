@@ -182,6 +182,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
         var action = (is_fav) ? "delete" : "post";
         $("#star-counter").html("&hellip;");
         $.post('includes/load.php', 'controller=cardtags&action='+action+'&card_id='+card_id+'&tag_id=7&owner='+curr_user_id, function(data) {
+                 alert(action+" "+data);
                   if (action=='delete' && data=='false'){
                         toggle_display(false);
                   } else if (action=='post' && data){
@@ -189,8 +190,8 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
                       if (star.tag_id==7){
                            toggle_display(true);
                      }
-                  } else{ alert("Error");}
-                }).error(function() { alert("Error"); })
+                  } else{ alert("There was an error setting favourite, please try again later.");}
+                }).error(function() { alert("Error sending data"); })
     }
     function toggle_flag(){
         function toggle_display(bol){
