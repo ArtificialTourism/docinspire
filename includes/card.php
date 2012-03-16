@@ -189,8 +189,8 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
                       if (star.tag_id==7){
                            toggle_display(true);
                      }
-                  } else{ alert(typeof(data)+": "+data);}
-                }).error(function() { alert("Error sending data"); })
+                  } else{ alert("Error sending favourite");}
+                }).error(function() { alert("Error sending favourite"); })
     }
     function toggle_flag(){
         function toggle_display(bol){
@@ -202,7 +202,7 @@ $comments_json = callAPI('cardcomments?card_id='.$card->id."&include_owner=1");
         var action = (is_flagged) ? "delete" : "post";
         $("#flag-counter").html("&hellip;");
         $.post('includes/load.php', 'controller=cardtags&action='+action+'&card_id='+card_id+'&tag_id=8&owner='+curr_user_id, function(data) {
-                  if (action=='delete' && data=='false'){
+                  if (action=='delete'){
                         toggle_display(false);
                   } else if (action=='post' && data){
                       var flag = eval(jQuery.parseJSON(data));
