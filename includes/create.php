@@ -53,11 +53,9 @@
             if (deleteitem){
                 var action = 'controller=card&action=delete&id='+card_id;
                 $.post('includes/load.php', action, function(data) {
-                  
                        alert('Card deleted');
                        window.location.href = 'index.php';
                        return false;
-                   
                  }).error(function() { alert("There was a problem deleting this item, please try again later."); })
             }
         }
@@ -75,6 +73,7 @@
                   submit    : 'OK',
                   tooltip   : 'Click to edit...',
                   placeholder : "Add Source (4)",
+                  onblur : 'ignore',
                   submitdata : function() {
                           togglebuttons("Saving...");
                           return {controller:'card', card_id : card_id };
@@ -95,6 +94,7 @@
                    cancel    : 'Cancel',
                    submit    : 'OK',
                    tooltip   : 'Click to edit...',
+                   onblur : 'ignore',
                    submitdata : function() {
                            togglebuttons("Saving...");
                            return {controller:'card', card_id : card_id,orig: this.revert};
@@ -117,8 +117,9 @@
                   cancel    : 'Cancel',
                   submit    : 'OK',
                   tooltip   : 'Click to edit...',
-                  rows:'14',
+                  rows:'8',
                   placeholder : "Add Summary (5)",
+                  onblur : 'ignore',
                   submitdata : function() {
                           togglebuttons("Saving...");
                           return {controller:'card', card_id : card_id};
@@ -155,7 +156,7 @@
                   cancel    : 'Cancel',
                   submit : "OK",
                   style  : "inherit",
-
+                  onblur : 'ignore',
                   submitdata : function() {
                       togglebuttons("Saving...");
                       return {controller:'card', id:"category_id",card_id : card_id};
@@ -175,6 +176,7 @@
                        submit    : 'Upload',
                        cancel    : 'Cancel',
                        tooltip   : "Click to upload...",
+                       onblur : 'ignore',
                        submitdata : function() {
                            togglebuttons("Saving...");
                            return {card_id: card_id, img: card_img };
