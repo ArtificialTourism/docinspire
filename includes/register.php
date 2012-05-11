@@ -161,7 +161,7 @@ $(document).ready(function() {
 							<span>Organisation</span>
 							<input class="textbox m editable" name="organisation" id="organisation" type="text" value="" />
 						</label>
-						<input type="hidden" name="group_id" value="1" />
+						<input type="hidden" name="group_id" value="3" />
 							<!-- Tick box -->
     					<div class="non-label-section">
     						    <p class="check-pair">

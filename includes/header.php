@@ -71,8 +71,8 @@
 	        <a href="<?php echo BASE_URL;?>">all events</a> | 
     		<?php if (empty($_SESSION['user'])){?>
     		    <a href="index.php?do=login" class="signout">sign in</a>
-    		<?php }else { ?>
-    		    <a href="index.php?do=admin">my events</a> | 
+    		<?php }else { if(is('admin')){?>
+    		    <a href="index.php?do=admin">my events</a> | <?php } ?>
     		    <a href="index.php?do=logout" class="signout">sign out</a>
     		<?php } ?>
     		</div>
