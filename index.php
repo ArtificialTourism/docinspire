@@ -21,6 +21,7 @@ if(empty($_SESSION['event_id'])||$page=='home'){
             $_SESSION['event_summary'] = $event->summary;
             $_SESSION['event_private']= $event->private;
             $_SESSION['event_owner'] = $event->owner;
+            $_SESSION['event_end']=$event->end;
             $_SESSION['event_coll_id'] = $event->collection_id;
             unset($_SESSION['org']);
             $owner_json = callAPI('user?id='.$event->owner);
@@ -284,7 +285,9 @@ if ($_SESSION['event_name']){
                        require_once('includes/login.php');
                        require_once('includes/footer.php');
                 }else{
-                    $events_json = callAPI("event?owner=".$_SESSION['user']->id."&type=3");
+                    $params = 'include_owner=true&include_card_count=true&type=3';
+                    if(!is('super')) $params .= '&owner='.$_SESSION['user']->id;
+                    $events_json = callAPI("event?".$params);
                     if (isset($events_json)) {
                         $events = json_decode($events_json);
                         require_once('includes/header.php');

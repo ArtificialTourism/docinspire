@@ -5,6 +5,40 @@
  <link rel="stylesheet" href="assets/js/chosen/chosen.css" type="text/css" media="screen" />
  <!--	Load the Chosen script.-->
  <script src="assets/js/chosen/chosen.jquery.js" type="text/javascript"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+ 	if($('#events').length) {
+ 	    $('#events')
+ 		.tablesorter({dateFormat: 'ddmmyyyy', widthFixed: true, widgets: ['zebra'],sortList:[[2,0]],headers: { 
+ 	          //3: { sorter: "shortDate", dateFormat: 'ddmmyyyy' }, // dateFormat will parsed as the default above 
+ 	         // 4: { sorter: "shortDate"}, // set day first format 
+ 	          5: { sorter: false}
+ 	        }})
+ 	    .tablesorterPager({container: $("#table-pager-1")});
+ 	    //display a confirmation box
+ 	    function confirmGetMessage(line) {
+             var myId = line.attr('id');
+             var deletevent = confirm("Are you sure you want to delete this event? "+myId); 
+             //if the user presses the "OK" button delete
+             if (deletevent){
+                 $.post('includes/load.php', 'controller=event&action=delete&id='+myId, function(data) {
+                     if(data=='false'){
+                         line.remove();
+                     } else{
+                         alert("There was an error removing the event, please try again later.");
+                     }
+                 }).error(function() { alert("There was an error removing the event, please try again later."); })
+             }
+         }
+         //delete buttons
+         $(".delete").click(function() {
+             var myTr = $(this).closest('tr');
+             confirmGetMessage(myTr);
+            return false;
+         });
+ 	}
+ });
+ </script>
  <!-- BEGIN PAGE BREADCRUMBS/TITLE -->
  <div class="container_4">
  	<div id="page-heading" class="clearfix">
@@ -28,13 +62,13 @@
 	<div class="grid_4">
 		<div class="panel">
 			<h2 class="cap">Events</h2>
+			<?php var_dump($events);?>
 			<div class="content">			
-				<table id="tablesorter-sample" class="tablesorter styled"> 
+				<table id="events" class="styled"> 
 					<thead> 
 						<tr> 
-							<th class="checkbox-row"><input type="checkbox" class="checkall" /></th> 
 							<th>Event Name</th> 
-							<th>Cards</th>
+							<th>Entries</th>
 							<th>Start date</th>
 							<th>End date</th> 
 							<th class="options-row">Options</th> 
@@ -44,13 +78,12 @@
 						<?php foreach ($events as $event){?>
 						<?php $event_cards_json = callAPI("eventcards?event_id=".$event->id); 
 						if (isset($event_cards_json)) {$event_cards = json_decode($event_cards_json);}?>
-						<tr> 
-							<td><input type="checkbox" name="checkbox" /></td> 
+						<tr id='<?php echo $event->id ?>'> 
 							<td><a href="index.php?do=form&edit_event=<?php echo $event->id ?>"><?php echo $event->name ?></a></td> 
 							<td class="center"><?php if(isset($event_cards)){echo(count($event_cards));}?></td> 
-							<td class="center"><?php echo(date( "d/m/y", $event->start)); ?></td>
-							<td class="center"><?php if($event->end!=0){echo(date( "d/m/y", $event->end));}else{echo("–");} ?></td> 
-							<td class="center options-row"><a class="icon-button edit" title="edit event" href="index.php?do=form&edit_event=<?php echo $event->id ?>">Edit</a><a class="icon-button send" title="send details" href="mailto:?subject=<?php echo $event->name; ?> Drivers of Change&amp;body=Link: <?php echo urlencode(BASE_URL.'index.php?event='.$event->id); ?> <?php if($event->password!=''){ echo("Secret Code:".$event->password);} ?>">Send details</a><a class="icon-button link" title="view event" href="<?php echo(BASE_URL.'index.php?event='.$event->id);?>">View event</a></td> 
+							<td class="center"><?php echo(date( "d-m-Y", $event->start)); ?></td>
+							<td class="center"><?php if($event->end!=0){echo(date( "d-m-Y", $event->end));}?></td>
+							<td class="center options-row"><a class="icon-button edit" title="edit event" href="index.php?do=form&edit_event=<?php echo $event->id ?>">Edit</a><a class="icon-button send" title="send details" href="mailto:?subject=<?php echo $event->name; ?> Drivers of Change&amp;body=Link: <?php echo urlencode(BASE_URL.'index.php?event='.$event->id); ?> <?php if($event->password!=''){ echo("Secret Code:".$event->password);} ?>">Send details</a><a class="icon-button link" title="view event" href="<?php echo(BASE_URL.'index.php?event='.$event->id);?>">View event</a><?php if(is('owner')||is('super')){ ?>&nbsp;&nbsp;<a class="icon-button delete" title="delete event" href="#">Delete</a><?php } ?></td> 
 						</tr>
 						<?php unset($event); } ?>
 					</tbody> 
@@ -58,9 +91,6 @@
 				</table>
 				
 				<div id="table-pager-1" class="pager">
-					<div class="table-options">
-						<a class="button red small" href="#">Delete</a>
-					</div>
 					<form action="">
 						<select class="pagesize">
 							<option selected="selected" value="10">10</option>
