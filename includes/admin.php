@@ -62,7 +62,7 @@
 	<div class="grid_4">
 		<div class="panel">
 			<h2 class="cap">Events</h2>
-			<?php var_dump($events);?>
+			
 			<div class="content">			
 				<table id="events" class="styled"> 
 					<thead> 
